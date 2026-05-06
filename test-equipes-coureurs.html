@@ -1,0 +1,1637 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>Prototype équipes coureurs - Giro 2026</title>
+  <style>
+    :root {
+      --pink: #e83d8a;
+      --pink-dark: #b91c68;
+      --pink-soft: #fde7f1;
+      --paper: #f7f4f0;
+      --ink: #121116;
+      --muted: #6f6870;
+      --line: #e8e0de;
+      --green: #258b66;
+      --green-soft: #e7f5ef;
+      --red: #c23939;
+      --red-soft: #fff1f1;
+      --gold: #d39b2a;
+      --shadow: 0 18px 48px rgba(39, 29, 36, 0.10);
+      --radius: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--ink);
+      background:
+        linear-gradient(180deg, rgba(232, 61, 138, 0.10), rgba(255, 255, 255, 0) 260px),
+        var(--paper);
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .app {
+      display: grid;
+      grid-template-columns: 278px minmax(0, 1fr);
+      min-height: 100vh;
+    }
+
+    .sidebar {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      min-width: 0;
+      padding: 22px 16px;
+      background: rgba(255, 255, 255, 0.92);
+      border-right: 1px solid var(--line);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      z-index: 10;
+    }
+
+    .brand {
+      display: grid;
+      grid-template-columns: 58px 1fr;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+      min-height: 68px;
+      padding: 8px 8px 14px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .brand-logo {
+      width: 58px;
+      height: 58px;
+      object-fit: contain;
+    }
+
+    .brand-kicker {
+      color: var(--pink-dark);
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      margin-bottom: 3px;
+    }
+
+    .brand-title {
+      font-size: 19px;
+      line-height: 1.04;
+      font-weight: 900;
+      overflow-wrap: anywhere;
+    }
+
+    .nav {
+      display: grid;
+      gap: 7px;
+    }
+
+    .nav-button {
+      display: grid;
+      grid-template-columns: 24px 1fr;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      color: #383038;
+      background: transparent;
+      border-radius: var(--radius);
+      text-align: left;
+      font-weight: 900;
+      transition: background 160ms ease, color 160ms ease, transform 160ms ease;
+    }
+
+    .nav-button:hover {
+      background: #f5eef1;
+      transform: translateX(2px);
+    }
+
+    .nav-button.active {
+      color: white;
+      background: var(--pink);
+      box-shadow: 0 12px 26px rgba(232, 61, 138, 0.24);
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      padding: 12px;
+      background: #fff8fb;
+      border: 1px solid #f2d5e1;
+      border-radius: var(--radius);
+      display: grid;
+      gap: 8px;
+    }
+
+    .footer-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .footer-value {
+      color: var(--ink);
+      font-size: 15px;
+      text-transform: none;
+      letter-spacing: 0;
+    }
+
+    .main {
+      min-width: 0;
+      padding: 28px clamp(18px, 3vw, 42px) 42px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 18px;
+      margin-bottom: 26px;
+    }
+
+    .title-block {
+      display: grid;
+      gap: 7px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--pink-dark);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 30px;
+      height: 3px;
+      background: var(--pink);
+      border-radius: 99px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(30px, 4vw, 56px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      max-width: 860px;
+      line-height: 1.5;
+      font-size: 15px;
+    }
+
+    .top-logo {
+      width: clamp(96px, 14vw, 156px);
+      max-height: 110px;
+      object-fit: contain;
+      filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.10));
+    }
+
+    .page {
+      display: none;
+      gap: 22px;
+    }
+
+    .page.active {
+      display: grid;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      min-height: 92px;
+      padding: 14px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      display: grid;
+      align-content: space-between;
+      gap: 8px;
+      box-shadow: var(--shadow);
+    }
+
+    .metric-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metric-value {
+      font-size: 30px;
+      font-weight: 900;
+      line-height: 1;
+    }
+
+    .metric-note {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .panel {
+      min-width: 0;
+      padding: 18px;
+      background: rgba(255, 255, 255, 0.92);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .panel.flat {
+      box-shadow: none;
+    }
+
+    .panel-title {
+      margin: 0 0 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .panel-title small {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .grid.two {
+      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      min-width: 0;
+    }
+
+    .input,
+    .select {
+      max-width: 100%;
+      min-width: 0;
+      min-height: 38px;
+      border: 1px solid #d9cecb;
+      border-radius: var(--radius);
+      background: white;
+      padding: 8px 10px;
+      color: var(--ink);
+      outline: none;
+    }
+
+    .input:focus,
+    .select:focus {
+      border-color: var(--pink);
+      box-shadow: 0 0 0 3px rgba(232, 61, 138, 0.16);
+    }
+
+    .primary-btn,
+    .secondary-btn {
+      max-width: 100%;
+      min-height: 40px;
+      padding: 9px 13px;
+      border-radius: var(--radius);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 900;
+    }
+
+    .primary-btn {
+      color: white;
+      background: var(--pink);
+      box-shadow: 0 12px 24px rgba(232, 61, 138, 0.22);
+    }
+
+    .secondary-btn {
+      color: var(--ink);
+      background: white;
+      border: 1px solid var(--line);
+    }
+
+    .manager-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 14px;
+    }
+
+    .manager-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .manager-head {
+      padding: 14px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      background: linear-gradient(135deg, rgba(232, 61, 138, 0.10), rgba(255, 255, 255, 0.78));
+      border-bottom: 1px solid var(--line);
+    }
+
+    .manager-name {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      font-weight: 900;
+      font-size: 20px;
+    }
+
+    .color-dot {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      flex: 0 0 auto;
+      border: 2px solid white;
+      box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.14);
+    }
+
+    .tag-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      min-height: 22px;
+      padding: 4px 7px;
+      border-radius: 99px;
+      background: #f4eff1;
+      color: #574e55;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .tag.pink {
+      color: var(--pink-dark);
+      background: var(--pink-soft);
+    }
+
+    .tag.green {
+      color: var(--green);
+      background: var(--green-soft);
+    }
+
+    .tag.red {
+      color: var(--red);
+      background: var(--red-soft);
+    }
+
+    .rider-list {
+      display: grid;
+    }
+
+    .rider-row {
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 12px;
+      border-bottom: 1px solid #f1e9e7;
+    }
+
+    .rider-row.abandoned {
+      background: var(--red);
+      color: white;
+      border-bottom-color: rgba(255, 255, 255, 0.22);
+    }
+
+    .rider-row.abandoned .rider-name {
+      color: white;
+      text-decoration: line-through;
+      text-decoration-thickness: 2px;
+    }
+
+    .rider-row.abandoned .jersey {
+      background: rgba(255, 255, 255, 0.94);
+      border-color: rgba(255, 255, 255, 0.50);
+    }
+
+    .rider-row:last-child {
+      border-bottom: 0;
+    }
+
+    .jersey {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      border-radius: 50%;
+      background: #fbf8f6;
+      border: 1px solid #eee3e1;
+    }
+
+    .rider-main {
+      min-width: 0;
+    }
+
+    .rider-name {
+      font-weight: 900;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .rider-team {
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 2px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .count-pill {
+      min-width: 32px;
+      height: 28px;
+      padding: 0 9px;
+      border-radius: 99px;
+      display: inline-grid;
+      place-items: center;
+      background: #f1ecea;
+      color: #40383f;
+      font-size: 12px;
+      font-weight: 900;
+    }
+
+    .count-pill.shared {
+      color: var(--pink-dark);
+      background: var(--pink-soft);
+    }
+
+    .count-pill.abandoned {
+      color: white;
+      background: var(--red);
+    }
+
+    .shared-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+      gap: 14px;
+    }
+
+    .shared-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+      min-width: 0;
+    }
+
+    .shared-head {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+
+    .impact-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .abandon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+
+    .abandon-card {
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 14px;
+    }
+
+    .abandon-card.danger {
+      border-color: #f0c9c9;
+      background: linear-gradient(135deg, rgba(194, 57, 57, 0.08), white 45%);
+    }
+
+    .abandon-score {
+      font-size: 34px;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--red);
+      margin: 8px 0;
+    }
+
+    .table-wrap {
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: white;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      min-width: 860px;
+      background: white;
+    }
+
+    th,
+    td {
+      padding: 10px 10px;
+      border-bottom: 1px solid #efe7e5;
+      border-right: 1px solid #f3ecea;
+      vertical-align: middle;
+      text-align: left;
+      white-space: nowrap;
+      font-size: 13px;
+    }
+
+    th {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      background: #fff9fb;
+      color: #5f545b;
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .entry-shell {
+      display: grid;
+      grid-template-columns: 280px minmax(0, 1fr);
+      gap: 18px;
+    }
+
+    .manager-list {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .manager-button {
+      min-height: 42px;
+      padding: 9px 11px;
+      border-radius: var(--radius);
+      background: white;
+      border: 1px solid var(--line);
+      color: #554c52;
+      font-weight: 900;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .manager-button.active {
+      color: white;
+      background: var(--pink);
+      border-color: var(--pink);
+    }
+
+    .entry-grid {
+      display: grid;
+      gap: 10px;
+    }
+
+    .entry-row {
+      display: grid;
+      grid-template-columns: 42px minmax(240px, 1fr) minmax(190px, 0.7fr) 112px;
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      background: white;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .entry-team-preview {
+      min-height: 38px;
+      display: flex;
+      align-items: center;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .muted {
+      color: var(--muted);
+    }
+
+    .empty-state {
+      padding: 24px;
+      text-align: center;
+      color: var(--muted);
+      border: 1px dashed #d6cbca;
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.72);
+    }
+
+    .toast {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      z-index: 100;
+      max-width: 320px;
+      padding: 12px 14px;
+      background: #282329;
+      color: white;
+      border-radius: var(--radius);
+      font-weight: 900;
+      box-shadow: 0 18px 42px rgba(0, 0, 0, 0.22);
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(8px);
+      transition: opacity 180ms ease, transform 180ms ease;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @media (max-width: 1100px) {
+      .grid.two,
+      .entry-shell {
+        grid-template-columns: 1fr;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .app {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar {
+        position: sticky;
+        height: auto;
+        padding: 10px 12px;
+      }
+
+      .brand {
+        grid-template-columns: 46px 1fr;
+        min-height: 54px;
+        padding: 4px 4px 8px;
+      }
+
+      .brand-logo {
+        width: 46px;
+        height: 46px;
+      }
+
+      .brand > div {
+        min-width: 0;
+      }
+
+      .nav {
+        display: flex;
+        max-width: 100%;
+        overflow-x: auto;
+        padding-bottom: 5px;
+      }
+
+      .nav-button {
+        grid-template-columns: 22px max-content;
+        min-width: max-content;
+      }
+
+      .sidebar-footer {
+        display: none;
+      }
+
+      .main {
+        padding: 22px 14px 34px;
+      }
+
+      .top-logo {
+        display: none;
+      }
+
+      .entry-row {
+        grid-template-columns: 42px minmax(0, 1fr);
+      }
+
+      .entry-row .select,
+      .entry-row .entry-team-preview,
+      .entry-row label {
+        grid-column: 2;
+      }
+
+      .toolbar .input,
+      .toolbar .select,
+      .toolbar .primary-btn,
+      .toolbar .secondary-btn {
+        width: 100%;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .metric-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .rider-row,
+      .shared-head {
+        grid-template-columns: 44px minmax(0, 1fr);
+      }
+
+      .rider-row .count-pill,
+      .shared-head .count-pill {
+        grid-column: 2;
+        width: max-content;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">
+        <img class="brand-logo" src="Giro logo.png" alt="Logo Giro">
+        <div>
+          <div class="brand-kicker">Prototype</div>
+          <div class="brand-title">Équipes coureurs</div>
+        </div>
+      </div>
+      <nav class="nav" id="nav"></nav>
+      <div class="sidebar-footer" id="sideSummary"></div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="title-block">
+          <div class="eyebrow">Fantasy Giro 2026</div>
+          <h1 id="pageTitle">Récapitulatif des équipes</h1>
+          <p class="subtitle" id="pageSubtitle">Vue de test pour comparer les 9 coureurs de chaque joueur, repérer les coureurs en commun et suivre l’impact des abandons.</p>
+        </div>
+        <img class="top-logo" src="Giro logo.png" alt="">
+      </header>
+
+      <section class="page active" id="page-overview"></section>
+      <section class="page" id="page-shared"></section>
+      <section class="page" id="page-abandons"></section>
+      <section class="page" id="page-entry"></section>
+    </main>
+  </div>
+  <div class="toast" id="toast"></div>
+
+  <script>
+    const STORAGE_KEY = "giro-2026-rider-teams-prototype-v3";
+    const APP_VERSION = "test-2026-05-06-03";
+    const PLAYER_COLORS = [
+      "#e83d8a", "#1368a8", "#258b66", "#d39b2a", "#7c3aed",
+      "#ef4444", "#0f766e", "#f97316", "#4f46e5", "#be123c",
+      "#0891b2", "#65a30d", "#a855f7", "#b45309", "#111827"
+    ];
+
+    const NAV_ITEMS = [
+      { id: "overview", short: "Récap", icon: "grid", title: "Récapitulatif des équipes", subtitle: "Toutes les compositions fantasy en un seul écran, avec maillots d’équipes, doublons et abandons." },
+      { id: "shared", short: "Communs", icon: "link", title: "Coureurs en commun", subtitle: "Les coureurs sélectionnés par plusieurs joueurs, avec le nombre de managers concernés." },
+      { id: "abandons", short: "Abandons", icon: "alert", title: "Abandons par équipe", subtitle: "Impact des coureurs abandonnés sur les équipes fantasy et sur les joueurs concernés." },
+      { id: "entry", short: "Saisie", icon: "edit", title: "Saisie des coureurs", subtitle: "Prototype de saisie des 9 coureurs par joueur, avec équipe cycliste et statut abandon." }
+    ];
+
+    const TEAMS = [
+      { id: "alpecin", name: "Alpecin Premier Tech", image: "alpecin-premier-tech-2026.png" },
+      { id: "bahrain", name: "Bahrain Victorious", image: "bahrain-victorious-2026.png" },
+      { id: "bardiani", name: "Bardiani CSF - Faizanè", image: "bardiani-csf-7-saber-2026.png" },
+      { id: "cofidis", name: "Cofidis", image: "cofidis-2026-n2.png" },
+      { id: "decathlon", name: "Decathlon CMA CGM Team", image: "decathlon-cma-cgm-team-2026.png" },
+      { id: "ef", name: "EF Education - EasyPost", image: "ef-education-easypost-2026-n2.png" },
+      { id: "groupama", name: "Groupama-FDJ United", image: "groupama-fdj-united-2026.png" },
+      { id: "ineos", name: "INEOS Grenadiers", image: "ineos-grenadiers-2026-n2.png" },
+      { id: "lidl", name: "Lidl-Trek", image: "lidl-trek-2026.png" },
+      { id: "lotto", name: "Lotto Intermarché", image: "lotto-intermarche-2026.png" },
+      { id: "movistar", name: "Movistar Team", image: "movistar-team-2026-n2.png" },
+      { id: "nsn", name: "NSN Cycling Team", image: "nsn-cycling-team-2026.png" },
+      { id: "pinarello", name: "Pinarello Q36.5 Pro Cycling Team", image: "pinarello-q365-pro-cycling-team-2026.png" },
+      { id: "redbull", name: "Red Bull - BORA - hansgrohe", image: "red-bull-bora-hansgrohe-2026.png" },
+      { id: "soudal", name: "Soudal Quick-Step", image: "soudal-quick-step-2026.png" },
+      { id: "jayco", name: "Team Jayco AlUla", image: "team-jayco-alula-2026.png" },
+      { id: "picnic", name: "Team Picnic PostNL", image: "team-picnic-postnl-2026.png" },
+      { id: "polti", name: "Team Polti VisitMalta", image: "team-polti-visitmalta-2026.png" },
+      { id: "visma", name: "Team Visma Lease a Bike", image: "team-visma-lease-a-bike-2026-n2.png" },
+      { id: "tudor", name: "Tudor Pro Cycling Team", image: "tudor-pro-cycling-team-2026.png" },
+      { id: "uae", name: "UAE Team Emirates XRG", image: "uae-team-emirates-xrg-2026.png" },
+      { id: "unibet", name: "Unibet Rose Rockets", image: "unibet-rose-rockets-2026.png" },
+      { id: "unox", name: "Uno-X Mobility", image: "uno-x-mobility-2026-n2.png" },
+      { id: "astana", name: "XDS Astana Team", image: "xds-astana-team-2026-n2.png" }
+    ];
+
+    const PLAYERS = [
+      "Quentin", "Pierre", "Nans", "Damien", "Robin", "Mathis", "Émilien", "Sacha",
+      "Agathe", "Lucie", "Stella", "Charles", "Orlane", "Ema", "Guillemette"
+    ].map((name, index) => ({ id: slug(name), name, color: PLAYER_COLORS[index % PLAYER_COLORS.length] }));
+
+    const PDF_STARTLIST_RAW = "procyclingstats.comGiro d'Italia   |   2026\n08/05/2026 - 31/05/2026   |   3468 km    |    184 starting\n1 Alpecin - Premier Tech\n1. GROVES Kaden\n2. BAYER Tobias\n3. BUSATTO Francesco\n4. GEENS Jonas\n5. PLANCKAERT Edward\n6. PLOWRIGHT Jensen\n7. PRICE-PEJTERSEN Johan\n8. VERGALLITO Luca\nDS: MEERSMAN Gianni,VAN HECKE\nPreben\n2 Bahrain - Victorious\n11. BUITRAGO Santiago\n12. CARUSO Damiano\n13. STANNARD Robert\n14. MIHOLJEVIC Fran\n15. EULALIO Afonso\n16. PAASSCHENS Mathijs\n17. SEGAERT Alec\n18. ZAMBANINI Edoardo\nDS: PELLIZOTTI Franco,ŠTANGELJ Gorazd\n3 Bardiani CSF 7 Saber\n21. MAGLI Filippo\n22. MARCELLUSI Martin\n23. PALETTI Luca\n24. ROJAS Vicente\n25. TAROZZI Manuele\n26. TSVETKOV Nikita\n27. TURCONI Filippo\n28. ZANONCELLO Enrico\nDS: REVERBERI Roberto,ROSSATO Mirko\n4 Decathlon CMA CGM Team\n31. GALL Felix\n32. ANDRESEN Tobias Lund\n33. GUDMESTAD Tord\n34. MUHLBERGER Gregor\n35. NAESEN Oliver\n36. PEDERSEN Rasmus Sojberg\n37. SCOTSON Callum\n38. STAUNE-MITTET Johannes\nDS: HAUSSLER Heinrich,ROBERTS Luke\n5 EF Education - EasyPost\n41. CEPEDA Jefferson Alexander\n42. BATTISTELLA Samuele\n43. BELOKI Markel\n44. MIHKELS Madis\n45. RAFFERTY Darren\n46. SHAW James\n47. VALGREN Michael\n48. VAN DER LEE Jardi Christiaan\nDS: GARATE Juan Manuel,LANGEVELD\nSebastian\n6 Groupama - FDJ United\n51. CAVAGNA Remi\n52. BARTHE Cyril\n53. HUENS Axel\n54. JACOBS Johan\n55. KENCH Josh\n56. PENHOET Paul\n57. ROCHAS Remy\n58. ROLLAND Brieuc\nDS: GREEN William,GUESDON Frédéric\n7 Lidl - Trek\n61. CICCONE Giulio\n62. CONSONNI Simone\n63. GEE-WEST Derek\n64. GHEBREIGZABHIER Amanuel\n65. MILAN Jonathan\n66. SOBRERO Matteo\n67. TEUTENBERG Tim Torn\n68. WALSCHEID Max\nDS: EISEL Bernhard,RAST Grégory\n8 Lotto Intermarché\n71. DE LIE Arnaud\n72. AERTS Toon\n73. GUALDI Simone\n74. MENTEN Milan\n75. ROTA Lorenzo\n76. RUTSCH Jonas\n77. GIDDINGS Joshua\n78. VAN EETVELT Lennert\nDS: BOUET Maxime,WELLENS Bart\n9 Movistar Team\n81. MAS Enric\n82. AULAR Orluis\n83. GARCIA CORTINA Ivan\n84. LOPEZ Juan Pedro\n85. MILESI Lorenzo\n86. OLIVEIRA Nelson\n87. ROMO Javier\n88. RUBIO Einer\nDS: SCIANDRI Maximilian,WHITE Matthew\n10 Netcompany INEOS\n91. BERNAL Egan\n92. ARENSMAN Thymen\n93. GANNA Filippo\n94. HAIG Jack\n95. SHEFFIELD Magnus\n96. SVESTAD-BARDSENG Embret\n97. SWIFT Connor\n98. TURNER Ben\nDS: ARVESEN Kurt-Asle,BASSO Leonardo\n11 NSN Cycling Team\n101.PINARELLO Alessandro\n102.HIRT Jan\n103.MULLEN Ryan\n104.SCHULTZ Nick\n105.SMITH Dion\n106.STEWART Jake\n107.STRONG Corbin\n109.VERNON Ethan\nDS: CATAFORD Alexander,CLAEYS Dimitri\n12 Pinarello Q36.5 Pro Cycling\nTeam\n111.BAX Sjoerd\n112.CHRISTEN Fabio\n113.DE LA CRUZ David\n114.DONOVAN Mark\n115.GONZALEZ David\n116.HARPER Chris\n117.MOSCHETTI Matteo\n118.ZUKOWSKY Nickolas\nDS: MISSAGLIA Gabriele,NIERI Daniele\n13 Red Bull - BORA -\nhansgrohe\n121.HINDLEY Jai\n122.ALEOTTI Giovanni\n123.DENZ Nico\n124.MOSCON Gianni\n125.PELLIZZARI Giulio\n126.VAN DIJKE Mick\n127.VLASOV Aleksandr\n128.ZWIEHOFF Ben\nDS: COOKSON Oliver,PÖMER Christian\n14 Soudal Quick-Step\n131.MAGNIER Paul\n132.BASTIAENS Ayco\n133.GAROFOLI Gianmarco\n134.RACCAGNI NOVIERO Andrea\n135.STUYVEN Jasper\n136.VAN DEN BOSSCHE Fabio\n137.VAN GESTEL Dries\n138.ZANA Filippo\nDS: BRAMATI Davide,HULSMANS Kevin\n15 Team Jayco AlUla\n141.O'CONNOR Ben\n142.ACKERMANN Pascal\n143.BOUWMAN Koen\n144.DONALDSON Robert\n145.ENGELHARDT Felix\n146.HATHERLY Alan\n147.JUUL-JENSEN Christopher\n148.VENDRAME Andrea\nDS: CUMMINGS Steve,WEENING Pieter\n16 Team Picnic PostNL\n151.BARGUIL Warren\n152.DE JONG Timo\n153.FLYNN Sean\n154.HAMILTON Chris\n155.LEEMREIZE Gijs\n156.NABERMAN Tim\n157.VAN DEN BROEK Frank\n158.VAN UDEN Casper\nDS: WEST Philip,WINSTON Matthew\n17 Team Polti VisitMalta\n161.BAIS Mattia\n162.CRESCIOLI Ludovico\n163.LONARDI Giovanni\n164.MAESTRI Mirco\n165.MIFSUD Andrea\n166.PESENTI Thomas\n167.SEVILLA Diego Pablo\n168.TONELLI Alessandro\nDS: ELLENA Giovanni,GAVAZZI Francesco\n18 Team Visma | Lease a Bike\n171.VINGEGAARD Jonas\n172.CAMPENAERTS Victor\n173.KELDERMAN Wilco\n174.KIELICH Timo\n175.KUSS Sepp\n176.LEMMEN Bart\n177.PIGANZOLI Davide\n178.REX Tim\nDS: REEF Marc,VAN DONGEN Arthur\n19 Tudor Pro Cycling Team\n181.STORER Michael\n182.BARTA Will\n183.FROIDEVAUX Robin\n184.LIENHARD Fabian\n185.MOZZATO Luca\n186.RONDEL Mathys\n187.STORK Florian\n188.WARBASSE Larry\nDS: SIEBERG Marcel,TOSATTO Matteo\n20 UAE Team Emirates - XRG\n191.YATES Adam\n192.ARRIETA Igor\n193.BJERG Mikkel\n194.CHRISTEN Jan\n195.NARVAEZ Jhonatan\n196.SOLER Marc\n197.MORGADO Antonio\n198.VINE Jay\nDS: BALDATO Fabio,MARCATO Marco\n21 Unibet Rose Rockets\n201.GROENEWEGEN Dylan\n202.DE VRIES Hartthijs\n203.KOPECKY Matyas\n204.KOPECKY Tomas\n205.KUBIS Lukas\n206.LARSEN Niklas\n207.POELS Wout\n208.REINDERS Elmar\nDS: HAMMOND Roger,VIK Sverre\nDyngeland\n22 Uno-X Mobility\n211.HOELGAARD Markus\n212.HOLTER Adne\n213.KULSET Johannes\n214.DVERSNES LAVIK Fredrik\n215.LEKNESSUND Andreas\n216.BLIKRA Erlend\n217.LOLAND Sakarias Koller\n218.TJOTTA Martin\nDS: BLAUDZUN Michael,KØRNER Max\nEmil,VINJEBO Emil Mielke\n23 XDS Astana Team\n221.BALLERINI Davide\n222.BETTIOL Alberto\n223.LIVYNS Arjen\n224.LOPEZ Harold Martin\n225.MALUCELLI Matteo\n226.SCARONI Christian\n227.SILVA Guillermo Thomas\n228.ULISSI Diego\nDS: CATALDO Dario,SHEFER Alexandr";
+
+    const TEAM_NAME_TO_ID = {
+      "Alpecin - Premier Tech": "alpecin",
+      "Bahrain - Victorious": "bahrain",
+      "Bardiani CSF 7 Saber": "bardiani",
+      "Decathlon CMA CGM Team": "decathlon",
+      "EF Education - EasyPost": "ef",
+      "Groupama - FDJ United": "groupama",
+      "Lidl - Trek": "lidl",
+      "Lotto Intermarch?": "lotto",
+      "Movistar Team": "movistar",
+      "Netcompany INEOS": "ineos",
+      "NSN Cycling Team": "nsn",
+      "Pinarello Q36.5 Pro Cycling Team": "pinarello",
+      "Red Bull - BORA - hansgrohe": "redbull",
+      "Soudal Quick-Step": "soudal",
+      "Team Jayco AlUla": "jayco",
+      "Team Picnic PostNL": "picnic",
+      "Team Polti VisitMalta": "polti",
+      "Team Visma | Lease a Bike": "visma",
+      "Tudor Pro Cycling Team": "tudor",
+      "UAE Team Emirates - XRG": "uae",
+      "Unibet Rose Rockets": "unibet",
+      "Uno-X Mobility": "unox",
+      "XDS Astana Team": "astana"
+    };
+
+    const RIDERS = parseStartlist(PDF_STARTLIST_RAW);
+    const RIDERS_ALPHABETICAL = [...RIDERS].sort((a, b) => a.sortName.localeCompare(b.sortName, "fr"));
+    const DEFAULT_ASSIGNMENTS = buildDemoAssignments();
+
+
+    const state = {
+      activePage: "overview",
+      selectedPlayerId: "quentin",
+      data: loadData()
+    };
+
+    function r(name, teamId, abandoned = false) {
+      return { name, teamId, abandoned };
+    }
+
+    function slug(value) {
+      return value
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/^-+|-+$/g, "");
+    }
+
+    function icon(name) {
+      const paths = {
+        grid: '<path d="M4 4h7v7H4z"></path><path d="M13 4h7v7h-7z"></path><path d="M4 13h7v7H4z"></path><path d="M13 13h7v7h-7z"></path>',
+        link: '<path d="M10 13a5 5 0 0 0 7.1 0l1.4-1.4a5 5 0 0 0-7.1-7.1L10.5 5"></path><path d="M14 11a5 5 0 0 0-7.1 0l-1.4 1.4a5 5 0 0 0 7.1 7.1l.9-.9"></path>',
+        alert: '<path d="M12 9v4"></path><path d="M12 17h.01"></path><path d="m10.3 4.3-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.7-2.7l-8-14a2 2 0 0 0-3.4 0Z"></path>',
+        edit: '<path d="M4 20h4l10-10-4-4L4 16v4Z"></path><path d="m13 7 4 4"></path>',
+        reset: '<path d="M5 12a7 7 0 1 0 2-5"></path><path d="M5 5v6h6"></path>',
+        save: '<path d="M5 4h12l2 2v14H5z"></path><path d="M8 4v6h8V4"></path><path d="M8 20v-6h8v6"></path>'
+      };
+      return '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (paths[name] || paths.grid) + '</svg>';
+    }
+
+    function parseStartlist(rawText) {
+      const riderRegex = /^(\d{1,3})\.\s*(.+)$/;
+      const teamRegex = /^(\d{1,2})\s+(.+)$/;
+      const teams = [];
+      let currentTeam = null;
+
+      for (const rawLine of rawText.split(/\n/)) {
+        const line = rawLine.trim();
+        if (!line) continue;
+        if (line.startsWith("procyclingstats.com") || line.startsWith("08/05/") || line.startsWith("DS:")) continue;
+
+        const riderMatch = line.match(riderRegex);
+        if (riderMatch && currentTeam) {
+          currentTeam.riders.push({
+            bib: riderMatch[1],
+            name: formatRiderName(riderMatch[2])
+          });
+          continue;
+        }
+
+        const teamMatch = line.match(teamRegex);
+        if (teamMatch && !riderMatch) {
+          currentTeam = {
+            number: teamMatch[1],
+            name: teamMatch[2].trim(),
+            riders: []
+          };
+          teams.push(currentTeam);
+          continue;
+        }
+
+        if (currentTeam && !currentTeam.riders.length) {
+          currentTeam.name = (currentTeam.name + " " + line).replace(/\s+/g, " ").trim();
+        }
+      }
+
+      return teams.flatMap((team) => {
+        const teamId = TEAM_NAME_TO_ID[team.name] || guessTeamId(team.name);
+        return team.riders.map((rider) => ({
+          id: "bib-" + rider.bib,
+          bib: rider.bib,
+          name: rider.name,
+          sortName: riderSortName(rider.name),
+          teamId,
+          teamName: team.name
+        }));
+      }).sort((a, b) => a.sortName.localeCompare(b.sortName, "fr"));
+    }
+
+    function formatRiderName(value) {
+      const smallWords = new Set(["DE", "DEL", "DELLA", "DI", "DA", "DOS", "VAN", "VAN DER", "VAN DEN", "VON", "LA", "LE"]);
+      const parts = value.trim().split(/\s+/);
+      let splitIndex = parts.findIndex((part) => /^[A-ZÀ-ÖØ-Þ'’-]+$/.test(part) && part.length > 1 && !smallWords.has(part));
+      if (splitIndex < 0) splitIndex = 0;
+      const surname = [];
+      const given = [];
+      for (const part of parts) {
+        if (/^[A-ZÀ-ÖØ-Þ'’-]+$/.test(part) || smallWords.has(part)) surname.push(titleCase(part));
+        else given.push(titleCase(part));
+      }
+      if (!given.length) return parts.map(titleCase).join(" ");
+      return `${given.join(" ")} ${surname.join(" ")}`.replace(/\s+/g, " ").trim();
+    }
+
+    function titleCase(value) {
+      return value
+        .toLowerCase()
+        .split(/([-'’])/)
+        .map((part) => part === "-" || part === "'" || part === "’" ? part : part.charAt(0).toUpperCase() + part.slice(1))
+        .join("");
+    }
+
+    function riderSortName(name) {
+      const parts = name.trim().split(/\s+/);
+      if (parts.length < 2) return name;
+      return `${parts[parts.length - 1]} ${parts.slice(0, -1).join(" ")}`;
+    }
+
+    function guessTeamId(teamName) {
+      const normalized = teamName.toLowerCase();
+      const found = TEAMS.find((team) => normalized.includes(team.name.toLowerCase().split(" ")[0]));
+      return found ? found.id : TEAMS[0].id;
+    }
+
+    function riderById(id) {
+      return RIDERS.find((rider) => rider.id === id) || null;
+    }
+
+    function riderFromEntry(entry) {
+      const selected = riderById(entry.riderId);
+      if (selected) return {
+        riderId: selected.id,
+        name: selected.name,
+        teamId: selected.teamId,
+        abandoned: isRiderAbandoned(selected.id)
+      };
+      const fallback = RIDERS[0];
+      return {
+        riderId: fallback?.id || "",
+        name: entry.name || fallback?.name || "",
+        teamId: entry.teamId || fallback?.teamId || TEAMS[0].id,
+        abandoned: isRiderAbandoned(fallback?.id || "")
+      };
+    }
+
+    function isRiderAbandoned(riderId) {
+      return state?.data?.abandonedRiderIds?.includes(riderId) || false;
+    }
+
+    function buildDemoAssignments() {
+      const abandonedIds = new Set(["bib-128", "bib-165", "bib-187"]);
+      const anchors = ["bib-171", "bib-65", "bib-91", "bib-121", "bib-1", "bib-191", "bib-61", "bib-195"];
+      const assignments = {};
+      const riderIds = RIDERS.map((rider) => rider.id);
+
+      PLAYERS.forEach((player, playerIndex) => {
+        const used = new Set();
+        const picks = [];
+        const anchorA = anchors[playerIndex % anchors.length];
+        const anchorB = anchors[(playerIndex + 3) % anchors.length];
+
+        for (const id of [anchorA, anchorB]) {
+          if (riderById(id) && !used.has(id)) {
+            picks.push(entryFromRiderId(id, abandonedIds));
+            used.add(id);
+          }
+        }
+
+        let cursor = playerIndex * 11;
+        while (picks.length < 9) {
+          const id = riderIds[cursor % riderIds.length];
+          cursor += 13;
+          if (used.has(id)) continue;
+          picks.push(entryFromRiderId(id, abandonedIds));
+          used.add(id);
+        }
+
+        assignments[player.id] = picks;
+      });
+
+      return assignments;
+    }
+
+    function entryFromRiderId(id, abandonedIds = new Set()) {
+      const rider = riderById(id);
+      return {
+        riderId: rider.id,
+        name: rider.name,
+        teamId: rider.teamId
+      };
+    }
+
+    function loadData() {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      if (!stored) return { assignments: clone(DEFAULT_ASSIGNMENTS), abandonedRiderIds: ["bib-128", "bib-165", "bib-187"] };
+      try {
+        return normalizeData(JSON.parse(stored));
+      } catch (error) {
+        console.warn(error);
+        return { assignments: clone(DEFAULT_ASSIGNMENTS), abandonedRiderIds: ["bib-128", "bib-165", "bib-187"] };
+      }
+    }
+
+    function normalizeData(data) {
+      const sourceAssignments = data.assignments || data;
+      const normalized = { assignments: clone(DEFAULT_ASSIGNMENTS), abandonedRiderIds: Array.isArray(data.abandonedRiderIds) ? data.abandonedRiderIds.filter((id) => riderById(id)) : [] };
+      for (const player of PLAYERS) {
+        if (Array.isArray(sourceAssignments[player.id])) {
+          normalized.assignments[player.id] = Array.from({ length: 9 }, (_, index) => {
+            const rider = sourceAssignments[player.id][index] || {};
+            const byId = riderById(rider.riderId);
+            const byName = RIDERS.find((item) => normalizeRiderName(item.name) === normalizeRiderName(rider.name || ""));
+            const selected = byId || byName || RIDERS[index % RIDERS.length];
+            return {
+              riderId: selected.id,
+              name: selected.name,
+              teamId: selected.teamId
+            };
+          });
+        }
+      }
+      return normalized;
+    }
+
+    function clone(value) {
+      return JSON.parse(JSON.stringify(value));
+    }
+
+    function saveData() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state.data));
+    }
+
+    function teamById(id) {
+      return TEAMS.find((team) => team.id === id) || TEAMS[0];
+    }
+
+    function playerById(id) {
+      return PLAYERS.find((player) => player.id === id) || PLAYERS[0];
+    }
+
+    function allEntries() {
+      return PLAYERS.flatMap((player) => (state.data.assignments[player.id] || []).map((entry, index) => {
+        const rider = riderFromEntry(entry);
+        return {
+          player,
+          rider,
+          index,
+          key: rider.riderId || normalizeRiderName(rider.name)
+        };
+      })).filter((entry) => entry.rider.name.trim());
+    }
+
+    function normalizeRiderName(name) {
+      return name.trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
+    function riderGroups() {
+      const groups = new Map();
+      for (const entry of allEntries()) {
+        if (!groups.has(entry.key)) groups.set(entry.key, []);
+        groups.get(entry.key).push(entry);
+      }
+      return Array.from(groups.values()).map((entries) => {
+        const first = entries[0];
+        return {
+          key: first.key,
+          name: first.rider.name,
+          team: teamById(first.rider.teamId),
+          entries,
+          count: entries.length,
+          abandoned: entries.some((entry) => entry.rider.abandoned),
+          managers: entries.map((entry) => entry.player)
+        };
+      }).sort((a, b) => {
+        if (b.count !== a.count) return b.count - a.count;
+        return a.name.localeCompare(b.name, "fr");
+      });
+    }
+
+    function sharedGroups() {
+      return riderGroups().filter((group) => group.count > 1);
+    }
+
+    function abandonedGroups() {
+      return riderGroups().filter((group) => group.abandoned);
+    }
+
+    function renderApp() {
+      renderNav();
+      renderSidebarSummary();
+      renderHeader();
+      document.querySelectorAll(".page").forEach((page) => page.classList.toggle("active", page.id === "page-" + state.activePage));
+      const renderers = {
+        overview: renderOverview,
+        shared: renderShared,
+        abandons: renderAbandons,
+        entry: renderEntry
+      };
+      renderers[state.activePage]();
+    }
+
+    function renderNav() {
+      const nav = document.getElementById("nav");
+      nav.innerHTML = NAV_ITEMS.map((item) => `
+        <button class="nav-button ${state.activePage === item.id ? "active" : ""}" type="button" data-page="${item.id}">
+          ${icon(item.icon)}
+          <span>${escapeHtml(item.short)}</span>
+        </button>
+      `).join("");
+      nav.querySelectorAll("[data-page]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.activePage = button.dataset.page;
+          renderApp();
+        });
+      });
+    }
+
+    function renderHeader() {
+      const item = NAV_ITEMS.find((navItem) => navItem.id === state.activePage) || NAV_ITEMS[0];
+      document.getElementById("pageTitle").textContent = item.title;
+      document.getElementById("pageSubtitle").textContent = item.subtitle;
+    }
+
+    function renderSidebarSummary() {
+      const entries = allEntries();
+      const shared = sharedGroups();
+      const abandoned = abandonedGroups();
+      document.getElementById("sideSummary").innerHTML = `
+        <div class="footer-row"><span>Joueurs</span><span class="footer-value">${PLAYERS.length}</span></div>
+        <div class="footer-row"><span>Coureurs</span><span class="footer-value">${entries.length}</span></div>
+        <div class="footer-row"><span>Doublons</span><span class="footer-value">${shared.length}</span></div>
+        <div class="footer-row"><span>Abandons</span><span class="footer-value">${abandoned.length}</span></div>
+        <div class="footer-row"><span>Version</span><span class="footer-value">${APP_VERSION}</span></div>
+      `;
+    }
+
+    function renderOverview() {
+      const page = document.getElementById("page-overview");
+      const groups = riderGroups();
+      const countMap = Object.fromEntries(groups.map((group) => [group.key, group.count]));
+      const abandonedMap = Object.fromEntries(groups.map((group) => [group.key, group.abandoned]));
+      page.innerHTML = `
+        ${renderMetrics()}
+        <div class="panel flat">
+          <div class="toolbar">
+            <input class="input" type="search" id="overviewSearch" placeholder="Filtrer un coureur ou joueur">
+            <select class="select" id="overviewTeam">
+              <option value="">Toutes les équipes cyclistes</option>
+              ${TEAMS.map((team) => `<option value="${team.id}">${escapeHtml(team.name)}</option>`).join("")}
+            </select>
+          </div>
+          <div class="manager-grid" id="managerGrid">
+            ${renderManagerCards(countMap, abandonedMap)}
+          </div>
+        </div>
+      `;
+      document.getElementById("overviewSearch").addEventListener("input", applyOverviewFilters);
+      document.getElementById("overviewTeam").addEventListener("change", applyOverviewFilters);
+    }
+
+    function renderMetrics() {
+      const entries = allEntries();
+      const uniqueCount = riderGroups().length;
+      const shared = sharedGroups();
+      const abandoned = abandonedGroups();
+      const mostPicked = shared[0];
+      return `
+        <div class="metric-grid">
+          ${metric("Compositions", PLAYERS.length, "9 coureurs par joueur")}
+          ${metric("Coureurs uniques", uniqueCount, entries.length + " sélections au total")}
+          ${metric("Coureurs communs", shared.length, mostPicked ? mostPicked.name + " x" + mostPicked.count : "Aucun doublon")}
+          ${metric("Abandons", abandoned.length, abandonmentImpactCount() + " équipes touchées")}
+        </div>
+      `;
+    }
+
+    function metric(label, value, note) {
+      return `
+        <div class="metric">
+          <div class="metric-label">${escapeHtml(label)}</div>
+          <div class="metric-value">${escapeHtml(String(value))}</div>
+          <div class="metric-note">${escapeHtml(String(note))}</div>
+        </div>
+      `;
+    }
+
+    function renderManagerCards(countMap, abandonedMap, query = "", teamFilter = "") {
+      return PLAYERS.map((player) => {
+        const riders = (state.data.assignments[player.id] || []).map(riderFromEntry);
+        const visibleRiders = riders.filter((rider) => {
+          const haystack = (player.name + " " + rider.name + " " + teamById(rider.teamId).name).toLowerCase();
+          const matchQuery = !query || haystack.includes(query.toLowerCase());
+          const matchTeam = !teamFilter || rider.teamId === teamFilter;
+          return matchQuery && matchTeam;
+        });
+        if (!visibleRiders.length) return "";
+        const abandonedCount = riders.filter((rider) => abandonedMap[rider.riderId]).length;
+        const activeCount = Math.max(0, riders.length - abandonedCount);
+        visibleRiders.sort((a, b) => a.name.localeCompare(b.name, "fr"));
+        return `
+          <article class="manager-card">
+            <div class="manager-head">
+              <div>
+                <div class="manager-name"><span class="color-dot" style="background:${player.color}"></span>${escapeHtml(player.name)}</div>
+                <div class="tag-row">
+                  <span class="tag green">${activeCount}/9 en course</span>
+                  ${abandonedCount ? `<span class="tag red">${abandonedCount} abandon</span>` : ""}
+                </div>
+              </div>
+            </div>
+            <div class="rider-list">
+              ${visibleRiders.map((rider) => renderRiderRow(rider, countMap, abandonedMap)).join("")}
+            </div>
+          </article>
+        `;
+      }).join("") || emptyState("Aucun résultat.");
+    }
+
+    function renderRiderRow(rider, countMap, abandonedMap) {
+      const team = teamById(rider.teamId);
+      const abandoned = abandonedMap[rider.riderId];
+      return `
+        <div class="rider-row ${abandoned ? "abandoned" : ""}">
+          <img class="jersey" src="${team.image}" alt="${escapeHtml(team.name)}">
+          <div class="rider-main">
+            <div class="rider-name">${escapeHtml(rider.name)}</div>
+          </div>
+          ${abandoned ? `<span class="count-pill abandoned">AB</span>` : ""}
+        </div>
+      `;
+    }
+
+    function applyOverviewFilters() {
+      const query = document.getElementById("overviewSearch").value.trim();
+      const teamFilter = document.getElementById("overviewTeam").value;
+      const groups = riderGroups();
+      const countMap = Object.fromEntries(groups.map((group) => [group.key, group.count]));
+      const abandonedMap = Object.fromEntries(groups.map((group) => [group.key, group.abandoned]));
+      document.getElementById("managerGrid").innerHTML = renderManagerCards(countMap, abandonedMap, query, teamFilter);
+    }
+
+    function renderShared() {
+      const page = document.getElementById("page-shared");
+      const groups = sharedGroups();
+      page.innerHTML = `
+        ${renderMetrics()}
+        <div class="panel">
+          <h2 class="panel-title">Coureurs pris par plusieurs joueurs <small>${groups.length} doublons</small></h2>
+          <div class="shared-grid">
+            ${groups.map((group) => renderSharedCard(group)).join("") || emptyState("Aucun coureur en commun.")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderSharedCard(group) {
+      return `
+        <article class="shared-card">
+          <div class="shared-head">
+            <img class="jersey" src="${group.team.image}" alt="${escapeHtml(group.team.name)}">
+            <div class="rider-main">
+              <div class="rider-name">${escapeHtml(group.name)}</div>
+              <div class="rider-team">${escapeHtml(group.team.name)}</div>
+            </div>
+            <span class="count-pill ${group.abandoned ? "abandoned" : "shared"}">${group.abandoned ? "AB" : "x" + group.count}</span>
+          </div>
+          <div class="impact-list">
+            ${group.managers.map((player) => `<span class="tag"><span class="color-dot" style="background:${player.color}"></span>${escapeHtml(player.name)}</span>`).join("")}
+          </div>
+        </article>
+      `;
+    }
+
+    function renderAbandons() {
+      const page = document.getElementById("page-abandons");
+      const abandoned = abandonedGroups();
+      const impactByPlayer = PLAYERS.map((player) => {
+        const count = (state.data.assignments[player.id] || []).map(riderFromEntry).filter((rider) => abandoned.some((group) => group.key === rider.riderId)).length;
+        return { player, count };
+      }).sort((a, b) => b.count - a.count || a.player.name.localeCompare(b.player.name, "fr"));
+      page.innerHTML = `
+        <div class="grid two">
+          <div class="panel">
+            <h2 class="panel-title">Joueurs touchés <small>${abandonmentImpactCount()} impacts</small></h2>
+            <div class="abandon-grid">
+              ${impactByPlayer.map((row) => `
+                <article class="abandon-card ${row.count ? "danger" : ""}">
+                  <div class="manager-name"><span class="color-dot" style="background:${row.player.color}"></span>${escapeHtml(row.player.name)}</div>
+                  <div class="abandon-score">${row.count}</div>
+                  <div class="muted">${row.count ? "coureur(s) abandonné(s)" : "aucun abandon"}</div>
+                </article>
+              `).join("")}
+            </div>
+          </div>
+          <div class="panel">
+            <h2 class="panel-title">Coureurs abandonnés <small>${abandoned.length} coureurs</small></h2>
+            <div class="shared-grid">
+              ${abandoned.map((group) => renderSharedCard(group)).join("") || emptyState("Aucun abandon renseigné.")}
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2 class="panel-title">Détail des impacts <small>par joueur</small></h2>
+          ${renderAbandonTable(abandoned)}
+        </div>
+      `;
+    }
+
+    function abandonmentImpactCount() {
+      const abandoned = new Set(abandonedGroups().map((group) => group.key));
+      return allEntries().filter((entry) => abandoned.has(entry.key)).length;
+    }
+
+    function renderAbandonTable(abandoned) {
+      if (!abandoned.length) return emptyState("Aucun abandon renseigné.");
+      const abandonedSet = new Set(abandoned.map((group) => group.key));
+      const rows = allEntries().filter((entry) => abandonedSet.has(entry.key)).sort((a, b) => a.player.name.localeCompare(b.player.name, "fr"));
+      return `
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Joueur</th>
+                <th>Coureur</th>
+                <th>Équipe cycliste</th>
+                <th>Présent chez</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${rows.map((entry) => {
+                const group = abandoned.find((item) => item.key === entry.key);
+                const team = teamById(entry.rider.teamId);
+                return `
+                  <tr>
+                    <td><span class="color-dot" style="background:${entry.player.color}"></span> ${escapeHtml(entry.player.name)}</td>
+                    <td><strong>${escapeHtml(entry.rider.name)}</strong></td>
+                    <td><img class="jersey" src="${team.image}" alt=""> ${escapeHtml(team.name)}</td>
+                    <td>${group.count} joueur(s)</td>
+                  </tr>
+                `;
+              }).join("")}
+            </tbody>
+          </table>
+        </div>
+      `;
+    }
+
+    function renderEntry() {
+      const page = document.getElementById("page-entry");
+      const selected = playerById(state.selectedPlayerId);
+      page.innerHTML = `
+        <div class="entry-shell">
+          <div class="panel flat">
+            <h2 class="panel-title">Joueurs <small>15 managers</small></h2>
+            <div class="manager-list">
+              ${PLAYERS.map((player) => `
+                <button class="manager-button ${player.id === selected.id ? "active" : ""}" type="button" data-entry-player="${player.id}">
+                  <span><span class="color-dot" style="background:${player.color}"></span> ${escapeHtml(player.name)}</span>
+                  <span>${(state.data.assignments[player.id] || []).filter((rider) => rider.name.trim()).length}/9</span>
+                </button>
+              `).join("")}
+            </div>
+          </div>
+          <div class="panel">
+            <div class="toolbar">
+              <h2 class="panel-title" style="margin:0">${escapeHtml(selected.name)} <small>9 coureurs</small></h2>
+              <button class="primary-btn" type="button" id="saveEntry">${icon("save")}Enregistrer</button>
+              <button class="secondary-btn" type="button" id="resetDemo">${icon("reset")}Restaurer démo</button>
+            </div>
+            <div class="entry-grid">
+              ${(state.data.assignments[selected.id] || []).map((entry, index) => {
+                const rider = riderFromEntry(entry);
+                const team = teamById(rider.teamId);
+                return `
+                <div class="entry-row">
+                  <img class="jersey" id="entryJersey-${index}" src="${team.image}" alt="">
+                  <select class="select" data-rider-id="${index}">
+                    ${renderRiderOptions(rider.riderId)}
+                  </select>
+                  <div class="entry-team-preview" id="entryTeam-${index}">${escapeHtml(team.name)}</div>
+                  <span class="tag ${rider.abandoned ? "red" : ""}">${rider.abandoned ? "Abandon" : "En course"}</span>
+                </div>
+              `}).join("")}
+            </div>
+          </div>
+        </div>
+        <div class="panel">
+          <h2 class="panel-title">Abandons globaux <small>appliqués à toutes les équipes</small></h2>
+          <div class="toolbar">
+            <select class="select" id="abandonSelect">
+              ${RIDERS_ALPHABETICAL.map((rider) => `<option value="${rider.id}">${escapeHtml(rider.name)} - ${escapeHtml(teamById(rider.teamId).name)}</option>`).join("")}
+            </select>
+            <button class="primary-btn" type="button" id="addAbandon">Marquer abandon</button>
+          </div>
+          <div class="shared-grid">
+            ${renderAbandonChips()}
+          </div>
+        </div>
+      `;
+
+      page.querySelectorAll("[data-entry-player]").forEach((button) => {
+        button.addEventListener("click", () => {
+          state.selectedPlayerId = button.dataset.entryPlayer;
+          renderApp();
+        });
+      });
+      page.querySelectorAll("[data-rider-id]").forEach((select) => {
+        select.addEventListener("change", () => {
+          const rider = riderById(select.value);
+          const team = teamById(rider.teamId);
+          const img = document.getElementById("entryJersey-" + select.dataset.riderId);
+          const label = document.getElementById("entryTeam-" + select.dataset.riderId);
+          img.src = team.image;
+          label.textContent = team.name;
+        });
+      });
+      document.getElementById("saveEntry").addEventListener("click", saveEntry);
+      document.getElementById("resetDemo").addEventListener("click", resetDemo);
+      document.getElementById("addAbandon").addEventListener("click", addGlobalAbandon);
+      page.querySelectorAll("[data-remove-abandon]").forEach((button) => button.addEventListener("click", () => removeGlobalAbandon(button.dataset.removeAbandon)));
+    }
+
+    function renderRiderOptions(selectedId) {
+      return RIDERS_ALPHABETICAL.map((rider) => {
+        const team = teamById(rider.teamId);
+        return `<option value="${rider.id}" ${rider.id === selectedId ? "selected" : ""}>${escapeHtml(rider.name)} - ${escapeHtml(team.name)}</option>`;
+      }).join("");
+    }
+
+    function saveEntry() {
+      const rows = Array.from(document.querySelectorAll(".entry-row"));
+      state.data.assignments[state.selectedPlayerId] = rows.map((row, index) => ({
+        ...entryFromRiderId(row.querySelector("[data-rider-id]").value),
+      }));
+      saveData();
+      showToast("Composition enregistrée.");
+      renderApp();
+    }
+
+    function renderAbandonChips() {
+      if (!state.data.abandonedRiderIds.length) return emptyState("Aucun coureur marqué abandon.");
+      return state.data.abandonedRiderIds
+        .map((id) => riderById(id))
+        .filter(Boolean)
+        .sort((a, b) => a.name.localeCompare(b.name, "fr"))
+        .map((rider) => {
+          const team = teamById(rider.teamId);
+          const impacted = allEntries().filter((entry) => entry.rider.riderId === rider.id).length;
+          return `
+            <article class="shared-card">
+              <div class="shared-head">
+                <img class="jersey" src="${team.image}" alt="${escapeHtml(team.name)}">
+                <div class="rider-main">
+                  <div class="rider-name">${escapeHtml(rider.name)}</div>
+                  <div class="rider-team">${escapeHtml(team.name)}</div>
+                </div>
+                <span class="count-pill abandoned">AB</span>
+              </div>
+              <div class="toolbar" style="margin:0">
+                <span class="tag red">${impacted} équipe(s) touchée(s)</span>
+                <button class="secondary-btn" type="button" data-remove-abandon="${rider.id}">Retirer</button>
+              </div>
+            </article>
+          `;
+        }).join("");
+    }
+
+    function addGlobalAbandon() {
+      const id = document.getElementById("abandonSelect").value;
+      if (!state.data.abandonedRiderIds.includes(id)) state.data.abandonedRiderIds.push(id);
+      saveData();
+      showToast("Abandon appliqué à toutes les équipes.");
+      renderApp();
+    }
+
+    function removeGlobalAbandon(id) {
+      state.data.abandonedRiderIds = state.data.abandonedRiderIds.filter((item) => item !== id);
+      saveData();
+      showToast("Abandon retiré.");
+      renderApp();
+    }
+
+    function resetDemo() {
+      if (!confirm("Restaurer les données fictives du prototype ?")) return;
+      state.data = { assignments: clone(DEFAULT_ASSIGNMENTS), abandonedRiderIds: ["bib-128", "bib-165", "bib-187"] };
+      saveData();
+      showToast("Données fictives restaurées.");
+      renderApp();
+    }
+
+    function emptyState(text) {
+      return `<div class="empty-state">${escapeHtml(text)}</div>`;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    function escapeAttr(value) {
+      return escapeHtml(value);
+    }
+
+    let toastTimer = null;
+    function showToast(message) {
+      const toast = document.getElementById("toast");
+      toast.textContent = message;
+      toast.classList.add("show");
+      window.clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 2200);
+    }
+
+    renderApp();
+  </script>
+</body>
+</html>
