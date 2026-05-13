@@ -283,6 +283,39 @@
       gap: 22px;
     }
 
+    .history-strip {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      margin: -8px 0 22px;
+    }
+
+    .history-item {
+      min-width: 0;
+      padding: 11px 12px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      box-shadow: 0 10px 26px rgba(39, 29, 36, 0.06);
+    }
+
+    .history-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 4px;
+    }
+
+    .history-value {
+      font-size: 15px;
+      font-weight: 900;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
     @keyframes pageIn {
       from {
         opacity: 0;
@@ -318,6 +351,42 @@
 
     .panel.flat {
       box-shadow: none;
+    }
+
+    .editorial-band {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 18px;
+      padding: 18px;
+      background:
+        linear-gradient(135deg, rgba(232, 61, 138, 0.14), rgba(255, 255, 255, 0.86)),
+        white;
+      border: 1px solid #f2cdda;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    .editorial-title {
+      font-size: 24px;
+      font-weight: 900;
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .editorial-note {
+      color: var(--muted);
+      line-height: 1.45;
+      margin: 0;
+    }
+
+    .editorial-kpi {
+      display: grid;
+      justify-items: end;
+      gap: 4px;
+      font-weight: 900;
+      color: var(--pink-dark);
+      text-align: right;
     }
 
     .panel-title {
@@ -382,7 +451,7 @@
 
     .ranking-row {
       display: grid;
-      grid-template-columns: 52px minmax(170px, 0.82fr) minmax(200px, 1.4fr) 158px;
+      grid-template-columns: 52px minmax(170px, 0.82fr) minmax(200px, 1.4fr) minmax(230px, 0.62fr);
       align-items: center;
       gap: 12px;
       padding: 12px;
@@ -503,7 +572,7 @@
     .score-cell {
       display: grid;
       justify-items: end;
-      gap: 5px;
+      gap: 8px;
       text-align: right;
       font-size: 12px;
       color: var(--muted);
@@ -515,6 +584,54 @@
       font-weight: 900;
       font-size: 21px;
       line-height: 1;
+    }
+
+    .gap-list {
+      display: grid;
+      gap: 3px;
+      width: 100%;
+      min-width: 180px;
+    }
+
+    .gap-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      padding: 4px 0;
+      border-radius: var(--radius);
+      background: transparent;
+      border: 0;
+    }
+
+    .gap-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0;
+      text-align: left;
+      white-space: normal;
+    }
+
+    .gap-value {
+      color: #5f545b;
+      font-size: 12px;
+      font-weight: 400;
+    }
+
+    .tie-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      padding: 4px 7px;
+      border-radius: 99px;
+      background: #fff4e1;
+      color: #9f6610;
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
     }
 
     .movement {
@@ -683,13 +800,18 @@
       gap: 14px;
     }
 
+    .jersey-grid.awards-v2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
     .jersey-card {
       background: white;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      padding: 15px;
+      padding: 18px;
       display: grid;
-      gap: 11px;
+      gap: 14px;
       min-width: 0;
     }
 
@@ -705,6 +827,33 @@
       height: 54px;
       object-fit: contain;
       flex: 0 0 auto;
+    }
+
+    .jersey-card.award-card {
+      background:
+        linear-gradient(135deg, rgba(232, 61, 138, 0.10), rgba(255, 255, 255, 0.72)),
+        white;
+    }
+
+    .award-hero {
+      display: grid;
+      grid-template-columns: 92px minmax(0, 1fr);
+      align-items: center;
+      gap: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid #f1e9e7;
+    }
+
+    .award-hero img {
+      width: 92px;
+      height: 92px;
+    }
+
+    .award-score {
+      color: var(--pink-dark);
+      font-size: 18px;
+      font-weight: 900;
+      margin-top: 5px;
     }
 
     .jersey-title {
@@ -736,6 +885,15 @@
       font-size: 13px;
     }
 
+    .mini-row.tied {
+      background: #fffaf0;
+      margin-left: -6px;
+      margin-right: -6px;
+      padding-left: 6px;
+      padding-right: 6px;
+      border-radius: var(--radius);
+    }
+
     .mini-rank {
       width: 24px;
       height: 24px;
@@ -746,6 +904,22 @@
       background: #3e383c;
       font-size: 12px;
       font-weight: 900;
+    }
+
+    .mini-rank.gold {
+      background: linear-gradient(135deg, #f4c35b, #b97917);
+    }
+
+    .mini-rank.silver {
+      background: linear-gradient(135deg, #dedede, #8d969c);
+    }
+
+    .mini-rank.bronze {
+      background: linear-gradient(135deg, #d99b5f, #945228);
+    }
+
+    .mini-rank.tied {
+      box-shadow: 0 0 0 3px rgba(211, 155, 42, 0.18);
     }
 
     .mini-name {
@@ -862,6 +1036,13 @@
       display: flex;
       flex-wrap: wrap;
       align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .detail-filter-panel {
+      display: grid;
+      grid-template-columns: minmax(180px, 1fr) minmax(160px, 0.7fr) minmax(160px, 0.7fr);
       gap: 10px;
       margin-bottom: 14px;
     }
@@ -1021,6 +1202,16 @@
       min-width: 0;
     }
 
+    .shared-card.shared-medium {
+      border-color: #f2cdda;
+      background: linear-gradient(135deg, rgba(232, 61, 138, 0.07), white 46%);
+    }
+
+    .shared-card.shared-high {
+      border-color: #d9b15c;
+      background: linear-gradient(135deg, rgba(211, 155, 42, 0.12), white 48%);
+    }
+
     .shared-head {
       display: grid;
       grid-template-columns: 56px minmax(0, 1fr) auto;
@@ -1033,6 +1224,13 @@
       display: flex;
       flex-wrap: wrap;
       gap: 6px;
+    }
+
+    .shared-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 10px;
     }
 
     .abandon-grid {
@@ -1256,6 +1454,38 @@
       color: white;
     }
 
+    .entry-notice {
+      display: grid;
+      gap: 5px;
+      margin-bottom: 14px;
+      padding: 12px;
+      border-radius: var(--radius);
+      border: 1px solid #f2d7a6;
+      background: #fff8eb;
+      color: #5f4216;
+    }
+
+    .entry-notice.done {
+      border-color: #b8e4d1;
+      background: var(--green-soft);
+      color: var(--green);
+    }
+
+    .entry-notice.cancelled {
+      border-color: #2d2930;
+      background: #2d2930;
+      color: white;
+    }
+
+    .entry-notice-title {
+      font-weight: 900;
+    }
+
+    .entry-notice-copy {
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
     .toggle-row {
       display: inline-flex;
       align-items: center;
@@ -1446,6 +1676,9 @@
       .grid.three,
       .jersey-grid,
       .record-grid,
+      .history-strip,
+      .jersey-grid.awards-v2,
+      .detail-filter-panel,
       .entry-shell {
         grid-template-columns: 1fr;
       }
@@ -1528,6 +1761,15 @@
         padding: 22px 14px 34px;
       }
 
+      .editorial-band {
+        grid-template-columns: 1fr;
+      }
+
+      .editorial-kpi {
+        justify-items: start;
+        text-align: left;
+      }
+
       .topbar {
         align-items: center;
       }
@@ -1592,6 +1834,15 @@
         height: 64px;
       }
 
+      .award-hero {
+        grid-template-columns: 70px minmax(0, 1fr);
+      }
+
+      .award-hero img {
+        width: 70px;
+        height: 70px;
+      }
+
       .rider-row,
       .shared-head {
         grid-template-columns: 44px minmax(0, 1fr);
@@ -1628,6 +1879,7 @@
         </div>
         <img class="top-logo" src="Giro logo.png" alt="">
       </header>
+      <div class="history-strip" id="historyStrip"></div>
 
       <section class="page active" id="page-general"></section>
       <section class="page" id="page-evolutions"></section>
@@ -1779,6 +2031,9 @@
       selectedPlayers: new Set(),
       selectedStageId: "s1",
       selectedDetailPlayerId: null,
+      detailSearch: "",
+      detailStageFilter: "all",
+      detailStatusFilter: "all",
       selectedRiderPlayerId: null,
       supabaseClient: null,
       supabaseUser: null,
@@ -2497,6 +2752,38 @@
       return "";
     }
 
+    function tieCount(row, ranking) {
+      return ranking.filter((other) => other.score === row.score).length;
+    }
+
+    function renderTiePill(row, ranking) {
+      const count = tieCount(row, ranking);
+      return count > 1 ? `<span class="tie-pill">Égalité x${count}</span>` : "";
+    }
+
+    function miniRankClass(row, ranking) {
+      return [rankBadgeClass(row.rank), tieCount(row, ranking) > 1 ? "tied" : ""].filter(Boolean).join(" ");
+    }
+
+    function miniRowClass(row, ranking) {
+      return tieCount(row, ranking) > 1 ? "tied" : "";
+    }
+
+    function renderGapList(gapLeader, gapPrevious) {
+      return `
+        <div class="gap-list">
+          <div class="gap-item">
+            <span class="gap-label">Écart vs 1ère place</span>
+            <span class="gap-value">${gapLeader === 0 ? "0" : "+" + formatNumber(gapLeader)}</span>
+          </div>
+          <div class="gap-item">
+            <span class="gap-label">Écart vs joueur précédent</span>
+            <span class="gap-value">${gapPrevious === 0 ? "0" : "+" + formatNumber(gapPrevious)}</span>
+          </div>
+        </div>
+      `;
+    }
+
     function stageRanking(stage) {
       const totals = Object.fromEntries(state.data.players.map((player) => [player.id, scoreOf(stage, player.id)]));
       return rankingFromTotals(totals);
@@ -2619,6 +2906,7 @@
       renderNav();
       renderHeader();
       renderSidebarSummary();
+      renderHistoryStrip();
       document.querySelectorAll(".page").forEach((page) => page.classList.toggle("active", page.id === "page-" + state.activePage));
       const renderers = {
         general: renderGeneral,
@@ -2681,6 +2969,41 @@
       `;
     }
 
+    function renderHistoryStrip() {
+      const target = document.getElementById("historyStrip");
+      if (!target) return;
+      const complete = completedStages();
+      const lastComplete = complete[complete.length - 1];
+      const nextIncomplete = state.data.stages.find((stage) => !isStageComplete(stage));
+      const leader = overallRanking()[0];
+      target.innerHTML = `
+        ${historyItem("Dernière étape validée", lastComplete ? lastComplete.name : "Aucune")}
+        ${historyItem("Prochaine saisie", nextIncomplete ? nextIncomplete.name : "Course complète")}
+        ${historyItem("Leader actuel", leader ? leader.player.name + " · " + formatNumber(leader.score) + " pts" : "-")}
+        ${historyItem("Dernière mise à jour", formatUpdatedAt(state.data.updatedAt))}
+      `;
+    }
+
+    function historyItem(label, value) {
+      return `
+        <div class="history-item">
+          <div class="history-label">${escapeHtml(label)}</div>
+          <div class="history-value">${escapeHtml(value)}</div>
+        </div>
+      `;
+    }
+
+    function formatUpdatedAt(value) {
+      const date = new Date(value);
+      if (Number.isNaN(date.getTime())) return "-";
+      return new Intl.DateTimeFormat("fr-FR", {
+        day: "2-digit",
+        month: "2-digit",
+        hour: "2-digit",
+        minute: "2-digit"
+      }).format(date);
+    }
+
     function renderGeneral() {
       const page = document.getElementById("page-general");
       const complete = completedStages();
@@ -2698,6 +3021,7 @@
           ${metric("Meilleur jeune", whiteRanking()[0]?.player.name || "-", whiteRanking()[0] ? formatNumber(whiteRanking()[0].score) + " pts" : "Aucun éligible")}
           ${metric("Joueurs", state.data.players.length, teamNames().length + " équipes actives")}
         </div>
+        ${renderRaceBrief(ranking, movement)}
         ${leader ? `
           <div class="leader-strip">
             <img src="Maillot Rose.png" alt="Maillot Rose">
@@ -2722,6 +3046,7 @@
                     <span class="color-dot" style="background:${row.player.color}"></span>
                     <span class="name">${escapeHtml(row.player.name)}</span>
                     <span class="movement ${move.className}">${move.text}</span>
+                    ${renderTiePill(row, ranking)}
                   </div>
                   <div class="tag-row">
                     ${row.player.team ? `<span class="tag">${escapeHtml(row.player.team)}</span>` : `<span class="tag">Sans équipe</span>`}
@@ -2731,8 +3056,7 @@
                 <div class="bar-track"><div class="bar-fill" style="width:${Math.max(3, (row.score / maxScore) * 100)}%; background:${row.player.color}"></div></div>
                 <div class="score-cell">
                   <div class="score-main">${formatNumber(row.score)} pts</div>
-                  <div>Écart vs 1ère place : ${gapLeader === 0 ? "0" : "+" + formatNumber(gapLeader)}</div>
-                  <div>Écart vs joueur précédent : ${gapPrevious === 0 ? "0" : "+" + formatNumber(gapPrevious)}</div>
+                  ${renderGapList(gapLeader, gapPrevious)}
                 </div>
               </article>
             `;
@@ -2935,6 +3259,7 @@
                       <span class="color-dot" style="background:${teamColor(row.team)}"></span>
                       <span class="name">${escapeHtml(row.team)}</span>
                       <span class="movement ${move.className}">${move.text}</span>
+                      ${renderTiePill(row, ranking)}
                     </div>
                     <div class="tag-row">
                       <span class="tag">${row.members.length} joueurs</span>
@@ -2944,8 +3269,7 @@
                   <div class="bar-track"><div class="bar-fill" style="width:${Math.max(3, (row.score / maxScore) * 100)}%; background:${teamColor(row.team)}"></div></div>
                   <div class="score-cell">
                     <div class="score-main">${formatNumber(row.score)} pts</div>
-                    <div>Écart vs 1ère place : ${gapLeader === 0 ? "0" : "+" + formatNumber(gapLeader)}</div>
-                    <div>Écart vs joueur précédent : ${gapPrevious === 0 ? "0" : "+" + formatNumber(gapPrevious)}</div>
+                    ${renderGapList(gapLeader, gapPrevious)}
                   </div>
                 </article>
               `;
@@ -3008,7 +3332,7 @@
       const records = raceStageRecords();
 
       page.innerHTML = `
-        <div class="jersey-grid">
+        <div class="jersey-grid awards-v2">
           ${renderJerseyCard("Maillot Rose", "Classement général", "Maillot Rose.png", overall)}
           ${renderJerseyCard("Maillot Cyclamen", "Étapes " + state.data.rules.cyclamenStages.join(", "), "Maillot Cyclamen.png", cyclamen)}
           ${renderJerseyCard("Maillot Bleu", "Étapes " + state.data.rules.blueStages.join(", "), "Maillot Bleu.png", blue)}
@@ -3023,22 +3347,24 @@
     }
 
     function renderJerseyCard(title, subtitle, image, ranking) {
-      const leader = ranking[0];
+      const rows = ranking.filter((row) => row.score !== 0);
+      const leader = rows[0];
       return `
-        <article class="jersey-card">
-          <div class="jersey-head">
+        <article class="jersey-card award-card">
+          <div class="award-hero">
             <img src="${image}" alt="${escapeHtml(title)}">
             <div>
               <div class="jersey-title">${escapeHtml(title)}</div>
               <div class="jersey-leader">${leader ? escapeHtml(leader.player.name) : "-"}</div>
+              <div class="award-score">${leader ? formatNumber(leader.score) + " pts" : "Aucun score"}</div>
+              <div class="muted">${escapeHtml(subtitle)}</div>
             </div>
           </div>
-          <div class="muted">${escapeHtml(subtitle)}</div>
           <div class="mini-ranking">
-            ${ranking.slice(0, 5).map((row) => `
-              <div class="mini-row">
-                <span class="mini-rank">${row.rank}</span>
-                <span class="mini-name"><span class="color-dot" style="background:${row.player.color}"></span> ${escapeHtml(row.player.name)}</span>
+            ${rows.slice(0, 5).map((row) => `
+              <div class="mini-row ${miniRowClass(row, rows)}">
+                <span class="mini-rank ${miniRankClass(row, rows)}">${row.rank}</span>
+                <span class="mini-name">${escapeHtml(row.player.name)}</span>
                 <span class="mini-score">${formatNumber(row.score)}</span>
               </div>
             `).join("") || emptyState("Aucune donnée")}
@@ -3051,7 +3377,7 @@
       const rows = state.data.players.map((player) => ({
         player,
         score: records[player.id]?.[key] || 0
-      })).sort((a, b) => {
+      })).filter((row) => row.score !== 0).sort((a, b) => {
         if (b.score !== a.score) return b.score - a.score;
         return a.player.name.localeCompare(b.player.name, "fr");
       });
@@ -3063,12 +3389,12 @@
           <h2 class="record-title"><span class="medal-icon ${key === "podiums" ? "blue" : key === "last" ? "dark" : ""}">${icon(iconName)}</span>${escapeHtml(title)}</h2>
           <div class="mini-ranking">
             ${rows.slice(0, 8).map((row) => `
-              <div class="mini-row">
-                <span class="mini-rank">${row.rank}</span>
-                <span class="mini-name"><span class="color-dot" style="background:${row.player.color}"></span> ${escapeHtml(row.player.name)}</span>
+              <div class="mini-row ${miniRowClass(row, rows)}">
+                <span class="mini-rank ${miniRankClass(row, rows)}">${row.rank}</span>
+                <span class="mini-name">${escapeHtml(row.player.name)}</span>
                 <span class="mini-score">${formatNumber(row.score)}</span>
               </div>
-            `).join("")}
+            `).join("") || emptyState("Aucune donnée")}
           </div>
         </article>
       `;
@@ -3079,10 +3405,28 @@
       if (!state.selectedDetailPlayerId || !getPlayer(state.selectedDetailPlayerId)) {
         state.selectedDetailPlayerId = state.data.players[0]?.id || null;
       }
+      const detailPlayers = filteredDetailPlayers();
+      const detailStages = filteredDetailStages();
       page.innerHTML = `
         <div class="panel">
-          <h2 class="panel-title">Tableau complet <small>Pts / rang étape / rang général</small></h2>
-          ${renderFullDetailTable()}
+          <h2 class="panel-title">Tableau complet <small>${detailPlayers.length} joueurs · ${detailStages.length} étapes</small></h2>
+          <div class="detail-filter-panel">
+            <input class="input" type="search" id="detailSearch" value="${escapeAttr(state.detailSearch)}" placeholder="Filtrer un joueur">
+            <select class="select" id="detailStageFilter">
+              <option value="all" ${state.detailStageFilter === "all" ? "selected" : ""}>Toutes les étapes</option>
+              <option value="completed" ${state.detailStageFilter === "completed" ? "selected" : ""}>Étapes complètes</option>
+              <option value="incomplete" ${state.detailStageFilter === "incomplete" ? "selected" : ""}>Étapes incomplètes</option>
+              <option value="race" ${state.detailStageFilter === "race" ? "selected" : ""}>Étapes 1 à 21</option>
+              <option value="final" ${state.detailStageFilter === "final" ? "selected" : ""}>Fin de course</option>
+            </select>
+            <select class="select" id="detailStatusFilter">
+              <option value="all" ${state.detailStatusFilter === "all" ? "selected" : ""}>Tous les joueurs</option>
+              <option value="team" ${state.detailStatusFilter === "team" ? "selected" : ""}>Avec équipe</option>
+              <option value="white" ${state.detailStatusFilter === "white" ? "selected" : ""}>Éligibles Blanc</option>
+              <option value="solo" ${state.detailStatusFilter === "solo" ? "selected" : ""}>Sans équipe</option>
+            </select>
+          </div>
+          ${renderFullDetailTable(detailPlayers, detailStages)}
         </div>
         <div class="panel">
           <h2 class="panel-title">Fiche joueur <small>Détail par étape</small></h2>
@@ -3092,29 +3436,69 @@
               ${state.data.players.map((player) => `<option value="${player.id}" ${player.id === state.selectedDetailPlayerId ? "selected" : ""}>${escapeHtml(player.name)}</option>`).join("")}
             </select>
           </div>
-          ${renderPlayerDetail(state.selectedDetailPlayerId)}
+          ${renderPlayerDetail(state.selectedDetailPlayerId, detailStages)}
         </div>
       `;
+      document.getElementById("detailSearch")?.addEventListener("input", (event) => {
+        const cursor = event.target.selectionStart || event.target.value.length;
+        state.detailSearch = event.target.value;
+        renderDetails();
+        const nextInput = document.getElementById("detailSearch");
+        nextInput?.focus();
+        nextInput?.setSelectionRange(cursor, cursor);
+      });
+      document.getElementById("detailStageFilter")?.addEventListener("change", (event) => {
+        state.detailStageFilter = event.target.value;
+        renderDetails();
+      });
+      document.getElementById("detailStatusFilter")?.addEventListener("change", (event) => {
+        state.detailStatusFilter = event.target.value;
+        renderDetails();
+      });
       document.getElementById("detailPlayer")?.addEventListener("change", (event) => {
         state.selectedDetailPlayerId = event.target.value;
         renderDetails();
       });
     }
 
-    function renderFullDetailTable() {
-      const stages = state.data.stages;
+    function filteredDetailPlayers() {
+      const query = normalizeRiderName(state.detailSearch);
+      return state.data.players.filter((player) => {
+        const matchesQuery = !query || normalizeRiderName(player.name + " " + player.team).includes(query);
+        const matchesStatus =
+          state.detailStatusFilter === "team" ? Boolean(player.team) :
+          state.detailStatusFilter === "white" ? player.whiteEligible :
+          state.detailStatusFilter === "solo" ? !player.team :
+          true;
+        return matchesQuery && matchesStatus;
+      });
+    }
+
+    function filteredDetailStages() {
+      return state.data.stages.filter((stage) => {
+        if (state.detailStageFilter === "completed") return isStageComplete(stage);
+        if (state.detailStageFilter === "incomplete") return !isStageComplete(stage);
+        if (state.detailStageFilter === "race") return !stage.final;
+        if (state.detailStageFilter === "final") return stage.final;
+        return true;
+      });
+    }
+
+    function renderFullDetailTable(players = state.data.players, stages = state.data.stages) {
       const cumulative = Object.fromEntries(state.data.players.map((player) => [player.id, 0]));
       const stageMaps = [];
-      for (const stage of stages) {
+      for (const stage of state.data.stages) {
         if (!isStageComplete(stage)) {
-          stageMaps.push(null);
+          stageMaps.push({ stage, info: null });
           continue;
         }
         const stageRankMap = Object.fromEntries(stageRanking(stage).map((row) => [row.player.id, row.rank]));
         for (const player of state.data.players) cumulative[player.id] += scoreOf(stage, player.id);
         const generalRankMap = Object.fromEntries(rankingFromTotals(cumulative).map((row) => [row.player.id, row.rank]));
-        stageMaps.push({ stageRankMap, generalRankMap, cumulative: { ...cumulative } });
+        stageMaps.push({ stage, info: { stageRankMap, generalRankMap, cumulative: { ...cumulative } } });
       }
+      const infoByStage = Object.fromEntries(stageMaps.map((item) => [item.stage.id, item.info]));
+      if (!players.length || !stages.length) return emptyState("Aucun résultat avec ces filtres.");
       return `
         <div class="table-wrap">
           <table>
@@ -3125,11 +3509,11 @@
               </tr>
             </thead>
             <tbody>
-              ${state.data.players.map((player) => `
+              ${players.map((player) => `
                 <tr>
                   <td><span class="color-dot" style="background:${player.color}"></span> ${escapeHtml(player.name)}</td>
-                  ${stages.map((stage, index) => {
-                    const info = stageMaps[index];
+                  ${stages.map((stage) => {
+                    const info = infoByStage[stage.id];
                     if (!info) return `<td class="muted">Non saisie</td>`;
                     if (stage.cancelled) return `<td class="muted">Annulée</td>`;
                     return `<td><strong>${formatNumber(scoreOf(stage, player.id))}</strong><br><span class="muted">E${info.stageRankMap[player.id]} · CG${info.generalRankMap[player.id]}</span></td>`;
@@ -3142,12 +3526,28 @@
       `;
     }
 
-    function renderPlayerDetail(playerId) {
+    function renderRaceBrief(ranking, movement) {
+      const lastRaceStage = completedStages().filter((stage) => !stage.final && !stage.cancelled).at(-1);
+      const lastWinner = lastRaceStage ? stageRanking(lastRaceStage).filter((row) => row.rank === 1).map((row) => row.player.name).join(", ") : "-";
+      const bestMover = ranking
+        .map((row) => ({ player: row.player, move: movement[row.player.id] || 0 }))
+        .sort((a, b) => b.move - a.move || a.player.name.localeCompare(b.player.name, "fr"))[0];
+      return `
+        <div class="editorial-band">
+          <div>
+            <div class="editorial-title">Résumé de course</div>
+            <p class="editorial-note">Dernier vainqueur d'étape : <strong>${escapeHtml(lastWinner)}</strong>. Plus forte progression : <strong>${bestMover && bestMover.move > 0 ? escapeHtml(bestMover.player.name) + " +" + bestMover.move : "aucune progression"}</strong>.</p>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderPlayerDetail(playerId, stages = state.data.stages) {
       const player = getPlayer(playerId);
       if (!player) return emptyState("Aucun joueur sélectionné.");
       let cumulative = 0;
       const rows = [];
-      for (const stage of state.data.stages) {
+      for (const stage of stages) {
         if (!isStageComplete(stage)) {
           rows.push({ stage, status: "Non saisie" });
           continue;
@@ -3300,8 +3700,19 @@
     function renderRiderShared() {
       const page = document.getElementById("page-rider-shared");
       const groups = sharedRiderGroups();
+      const heavyGroups = groups.filter((group) => group.count >= 4).length;
       page.innerHTML = `
         ${renderRiderMetrics()}
+        <div class="editorial-band">
+          <div>
+            <div class="editorial-title">Coureurs en commun</div>
+            <p class="editorial-note">Les cartes distinguent les doublons simples, les choix très partagés et les coureurs vraiment structurants dans plusieurs compositions.</p>
+          </div>
+          <div class="editorial-kpi">
+            <span>${heavyGroups}</span>
+            <span>communs forts</span>
+          </div>
+        </div>
         <div class="panel">
           <h2 class="panel-title">Coureurs pris par plusieurs joueurs <small>${groups.length} doublons</small></h2>
           <div class="shared-grid">
@@ -3313,7 +3724,7 @@
 
     function renderRiderSharedCard(group) {
       return `
-        <article class="shared-card">
+        <article class="shared-card ${sharedLevelClass(group)}">
           <div class="shared-head">
             <img class="jersey" src="${group.team.image}" alt="${escapeHtml(group.team.name)}">
             <div class="rider-main">
@@ -3322,11 +3733,27 @@
             </div>
             <span class="count-pill ${group.abandoned ? "abandoned" : "shared"}">${group.abandoned ? "AB" : "x" + group.count}</span>
           </div>
+          <div class="shared-meta">
+            <span class="tag ${group.count >= 4 ? "pink" : group.count >= 3 ? "blue" : ""}">${sharedLevelLabel(group)}</span>
+            ${group.abandoned ? `<span class="tag red">Abandon</span>` : ""}
+          </div>
           <div class="impact-list">
             ${group.managers.map((player) => `<span class="tag"><span class="color-dot" style="background:${player.color}"></span>${escapeHtml(player.name)}</span>`).join("")}
           </div>
         </article>
       `;
+    }
+
+    function sharedLevelClass(group) {
+      if (group.count >= 4) return "shared-high";
+      if (group.count >= 3) return "shared-medium";
+      return "";
+    }
+
+    function sharedLevelLabel(group) {
+      if (group.count >= 4) return "Commun fort";
+      if (group.count >= 3) return "Très partagé";
+      return "Duo";
     }
 
     function renderRiderAbandons() {
@@ -3592,6 +4019,7 @@
               </label>
               <button class="secondary-btn" type="button" id="clearStage" ${disabled}>${icon("reset")}Vider cette saisie</button>
             </div>
+            <div id="entryStageNotice">${renderEntryStageNotice(activeStage)}</div>
             <div class="score-form">
               ${state.data.players.map((player) => `
                 <label class="score-input-row ${activeStage.cancelled ? "disabled" : ""}">
@@ -3639,6 +4067,33 @@
       });
     }
 
+    function renderEntryStageNotice(stage) {
+      const completion = stageCompletion(stage);
+      if (stage.cancelled) {
+        return `
+          <div class="entry-notice cancelled">
+            <div class="entry-notice-title">Étape annulée</div>
+            <div class="entry-notice-copy">Cette étape est intégrée à 0 point pour tout le monde et ne bloque pas les classements.</div>
+          </div>
+        `;
+      }
+      if (completion.status === "complete") {
+        return `
+          <div class="entry-notice done">
+            <div class="entry-notice-title">Étape complète</div>
+            <div class="entry-notice-copy">Tous les joueurs sont saisis : cette étape est intégrée aux classements, graphiques, prix et records.</div>
+          </div>
+        `;
+      }
+      const missing = completion.total - completion.count;
+      return `
+        <div class="entry-notice">
+          <div class="entry-notice-title">Étape incomplète</div>
+          <div class="entry-notice-copy">Il manque ${missing} joueur${missing > 1 ? "s" : ""}. Cette étape est ignorée dans les classements, graphiques, prix et records tant qu’elle n’est pas complète.</div>
+        </div>
+      `;
+    }
+
     function refreshEntryVisuals(stage) {
       const completion = stageCompletion(stage);
       const status = document.querySelector(".status-pill");
@@ -3647,6 +4102,8 @@
         status.classList.toggle("cancelled", completion.status === "cancelled");
         status.textContent = stage.cancelled ? "Étape annulée" : completion.count + "/" + completion.total + " joueurs saisis";
       }
+      const notice = document.getElementById("entryStageNotice");
+      if (notice) notice.innerHTML = renderEntryStageNotice(stage);
       document.querySelectorAll("[data-stage]").forEach((button) => {
         const buttonStage = state.data.stages.find((item) => item.id === button.dataset.stage);
         const buttonStatus = stageCompletion(buttonStage).status;
