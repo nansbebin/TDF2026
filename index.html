@@ -325,6 +325,28 @@
       filter: drop-shadow(0 12px 18px rgba(0, 0, 0, 0.10));
     }
 
+    .topbar-side {
+      display: grid;
+      justify-items: end;
+      gap: 10px;
+      flex: 0 0 auto;
+    }
+
+    .updated-pill {
+      display: inline-flex;
+      align-items: center;
+      min-height: 25px;
+      padding: 5px 8px;
+      border-radius: 99px;
+      background: rgba(6, 27, 58, 0.06);
+      color: rgba(6, 27, 58, 0.58);
+      font-size: 11px;
+      font-weight: 900;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+
     .page {
       display: none;
       animation: pageIn 180ms ease;
@@ -335,47 +357,15 @@
       gap: 22px;
     }
 
-    .history-strip {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 10px;
-      margin: -8px 0 22px;
-    }
-
-    .history-item {
-      min-width: 0;
-      padding: 11px 12px;
-      background: rgba(255, 255, 255, 0.78);
-      border: 1px solid var(--line);
-      border-top: 4px solid var(--yellow);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 26px rgba(6, 27, 58, 0.06);
-    }
-
-    .history-label {
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 900;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      margin-bottom: 4px;
-    }
-
-    .history-value {
-      font-size: 15px;
-      font-weight: 900;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
     .stage-ribbon {
       display: grid;
       grid-template-columns: repeat(21, minmax(34px, 1fr));
-      gap: 6px;
+      gap: 8px;
       margin: -8px 0 22px;
-      padding: 10px;
-      background: rgba(255, 255, 255, 0.76);
+      padding: 12px;
+      background:
+        linear-gradient(90deg, rgba(255, 237, 0, 0.16), rgba(255, 255, 255, 0) 34%),
+        rgba(255, 255, 255, 0.88);
       border: 1px solid var(--line);
       border-radius: var(--radius);
       box-shadow: 0 10px 26px rgba(6, 27, 58, 0.06);
@@ -383,9 +373,9 @@
 
     .ribbon-stage {
       min-width: 0;
-      min-height: 38px;
+      min-height: 42px;
       padding: 5px 4px;
-      border-radius: 7px;
+      border-radius: 8px;
       border: 1px solid var(--line);
       background: white;
       color: var(--navy);
@@ -396,7 +386,18 @@
       font-weight: 900;
       font-size: 13px;
       line-height: 1;
+      position: relative;
+      overflow: hidden;
       transition: transform 160ms ease, border-color 160ms ease, background 160ms ease;
+    }
+
+    .ribbon-stage::before {
+      content: "";
+      position: absolute;
+      inset: auto 7px 5px;
+      height: 3px;
+      border-radius: 99px;
+      background: #cad5e4;
     }
 
     .ribbon-stage:hover {
@@ -405,9 +406,13 @@
     }
 
     .ribbon-stage.complete {
-      background: var(--green-soft);
-      border-color: #b8e4d1;
+      background: #f5fff9;
+      border-color: #8fd8b9;
       color: var(--green);
+    }
+
+    .ribbon-stage.complete::before {
+      background: var(--green);
     }
 
     .ribbon-stage.partial {
@@ -416,10 +421,19 @@
       color: #9f6610;
     }
 
+    .ribbon-stage.partial::before {
+      background: #f0a42a;
+    }
+
     .ribbon-stage.cancelled {
-      background: var(--navy-2);
-      border-color: var(--navy-2);
-      color: white;
+      background: #eef1f5;
+      border-color: #c5ced9;
+      color: #596679;
+      text-decoration: line-through;
+    }
+
+    .ribbon-stage.cancelled::before {
+      background: #596679;
     }
 
     .ribbon-stage.active {
@@ -427,6 +441,10 @@
       border-color: var(--yellow-dark);
       color: var(--navy);
       box-shadow: 0 0 0 2px rgba(255, 237, 0, 0.25);
+    }
+
+    .ribbon-stage.stage-break {
+      box-shadow: -6px 0 0 rgba(6, 27, 58, 0.08);
     }
 
     .ribbon-stage small {
@@ -463,8 +481,8 @@
     }
 
     .panel {
-      background: rgba(255, 255, 255, 0.90);
-      border: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid rgba(6, 27, 58, 0.10);
       border-radius: var(--radius);
       box-shadow: var(--shadow);
       padding: 18px;
@@ -473,6 +491,7 @@
 
     .panel.flat {
       box-shadow: none;
+      background: rgba(255, 255, 255, 0.78);
     }
 
     .editorial-band {
@@ -572,6 +591,113 @@
       line-height: 1.25;
     }
 
+    .classification-grid {
+      display: grid;
+      grid-template-columns: repeat(6, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .classification-card {
+      min-width: 0;
+      min-height: 154px;
+      display: grid;
+      grid-template-rows: auto 1fr;
+      gap: 10px;
+      padding: 14px;
+      border-radius: var(--radius);
+      border: 1px solid rgba(6, 27, 58, 0.10);
+      background:
+        linear-gradient(135deg, rgba(255, 237, 0, 0.12), rgba(255, 255, 255, 0) 48%),
+        white;
+      box-shadow: 0 14px 34px rgba(6, 27, 58, 0.08);
+      overflow: hidden;
+    }
+
+    .classification-card.green {
+      background:
+        linear-gradient(135deg, rgba(20, 128, 86, 0.15), rgba(255, 255, 255, 0) 50%),
+        white;
+    }
+
+    .classification-card.polka {
+      background:
+        radial-gradient(circle at 18% 22%, rgba(216, 28, 35, 0.18) 0 9px, transparent 10px),
+        radial-gradient(circle at 86% 16%, rgba(216, 28, 35, 0.16) 0 8px, transparent 9px),
+        radial-gradient(circle at 72% 78%, rgba(216, 28, 35, 0.13) 0 10px, transparent 11px),
+        white;
+    }
+
+    .classification-card.white {
+      background:
+        linear-gradient(135deg, rgba(0, 91, 170, 0.10), rgba(255, 255, 255, 0) 46%),
+        white;
+    }
+
+    .classification-card.team {
+      background:
+        linear-gradient(135deg, rgba(6, 27, 58, 0.08), rgba(255, 237, 0, 0.16)),
+        white;
+    }
+
+    .classification-label {
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .classification-body {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr);
+      align-items: center;
+      gap: 11px;
+    }
+
+    .classification-visual {
+      width: 56px;
+      height: 56px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.80);
+      border: 1px solid rgba(6, 27, 58, 0.08);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72);
+      overflow: hidden;
+    }
+
+    .classification-visual img {
+      width: 50px;
+      height: 50px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .classification-visual.wide img {
+      width: 54px;
+      height: 38px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
+
+    .classification-name {
+      min-width: 0;
+      font-family: var(--font-title);
+      font-size: 22px;
+      font-weight: 900;
+      line-height: 0.98;
+      text-transform: uppercase;
+      overflow-wrap: anywhere;
+    }
+
+    .classification-note {
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      line-height: 1.25;
+    }
+
     .ranking-list {
       display: grid;
       gap: 10px;
@@ -648,12 +774,62 @@
       gap: 8px;
       font-weight: 900;
       min-width: 0;
+      flex-wrap: wrap;
     }
 
     .player-name span.name {
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
+    }
+
+    .name-awards {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      flex-wrap: wrap;
+      min-width: max-content;
+    }
+
+    .award-badge {
+      width: 34px;
+      height: 34px;
+      display: inline-grid;
+      place-items: center;
+      border-radius: 50%;
+      background: white;
+      border: 1px solid rgba(6, 27, 58, 0.16);
+      box-shadow: 0 6px 14px rgba(6, 27, 58, 0.14);
+      overflow: hidden;
+      flex: 0 0 auto;
+    }
+
+    .award-badge.stage-win {
+      background:
+        radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.96), rgba(255, 237, 0, 0.42) 48%, rgba(244, 180, 31, 0.44));
+      border-color: rgba(244, 180, 31, 0.72);
+    }
+
+    .award-badge img {
+      width: 31px;
+      height: 31px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .award-badge.team-leader {
+      width: 46px;
+      height: 31px;
+      border-radius: 7px;
+      border-color: rgba(255, 237, 0, 0.72);
+      background: #fff600;
+    }
+
+    .award-badge.team-leader img {
+      width: 44px;
+      height: 29px;
+      object-fit: cover;
+      object-position: center;
     }
 
     .color-dot {
@@ -917,13 +1093,19 @@
       width: 100%;
       min-height: 360px;
       overflow: hidden;
+      position: relative;
     }
 
     .chart-svg {
       width: 100%;
       height: 360px;
       display: block;
-      background: white;
+      background:
+        linear-gradient(90deg, rgba(6, 27, 58, 0.035) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(6, 27, 58, 0.035) 1px, transparent 1px),
+        linear-gradient(135deg, rgba(255, 237, 0, 0.08), rgba(255, 255, 255, 0) 42%),
+        white;
+      background-size: 54px 54px, 54px 54px, auto, auto;
       border: 1px solid var(--line);
       border-radius: var(--radius);
     }
@@ -947,12 +1129,12 @@
     }
 
     .chart-grid {
-      stroke: #eee4e2;
+      stroke: rgba(6, 27, 58, 0.10);
       stroke-width: 1;
     }
 
     .chart-axis {
-      stroke: #cfc4c1;
+      stroke: rgba(6, 27, 58, 0.28);
       stroke-width: 1.4;
     }
 
@@ -1005,6 +1187,29 @@
     .chart-svg.has-hover .chart-series.active .chart-point {
       r: 5.5;
     }
+
+    .chart-tooltip {
+      position: absolute;
+      z-index: 6;
+      left: 0;
+      top: 0;
+      max-width: 240px;
+      padding: 8px 10px;
+      border-radius: 8px;
+      background: var(--navy);
+      color: white;
+      font-size: 12px;
+      font-weight: 900;
+      line-height: 1.2;
+      box-shadow: 0 16px 32px rgba(6, 27, 58, 0.25);
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(12px, -12px);
+      transition: opacity 120ms ease;
+    }
+
+    .chart-tooltip.show {
+      opacity: 1;
     }
 
     .legend {
@@ -1186,6 +1391,13 @@
       font-weight: 900;
       font-size: 20px;
       min-width: 0;
+      flex-wrap: wrap;
+    }
+
+    .manager-name .name {
+      min-width: 0;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .rider-list {
@@ -1515,7 +1727,18 @@
       font-weight: 900;
       display: grid;
       place-items: center;
+      position: relative;
+      overflow: hidden;
       transition: transform 150ms ease, border 150ms ease, background 150ms ease;
+    }
+
+    .stage-button::after {
+      content: "";
+      position: absolute;
+      inset: auto 7px 6px;
+      height: 4px;
+      border-radius: 99px;
+      background: #cad5e4;
     }
 
     .stage-button:hover {
@@ -1527,24 +1750,38 @@
       background: var(--pink);
       color: var(--navy);
       border-color: var(--pink);
+      box-shadow: 0 0 0 2px rgba(255, 237, 0, 0.24);
     }
 
     .stage-button.complete {
-      background: var(--green-soft);
+      background: #f4fff9;
       color: var(--green);
-      border-color: #b8e4d1;
+      border-color: #8fd8b9;
+    }
+
+    .stage-button.complete::after {
+      background: var(--green);
     }
 
     .stage-button.cancelled {
-      background: var(--navy-2);
-      color: white;
-      border-color: var(--navy-2);
+      background: #eef1f5;
+      color: #596679;
+      border-color: #c5ced9;
+      text-decoration: line-through;
+    }
+
+    .stage-button.cancelled::after {
+      background: #596679;
     }
 
     .stage-button.partial {
       background: #fff4e1;
       color: #9f6610;
       border-color: #f2d7a6;
+    }
+
+    .stage-button.partial::after {
+      background: #f0a42a;
     }
 
     .stage-button.active.complete,
@@ -1587,6 +1824,43 @@
       justify-content: space-between;
       gap: 12px;
       margin-bottom: 14px;
+    }
+
+    .jersey-entry-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .jersey-entry-card {
+      display: grid;
+      grid-template-columns: 48px minmax(0, 1fr);
+      align-items: center;
+      gap: 10px;
+      padding: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fbfdff;
+    }
+
+    .jersey-entry-card img {
+      width: 46px;
+      height: 46px;
+      object-fit: contain;
+    }
+
+    .jersey-entry-card label {
+      display: grid;
+      gap: 5px;
+    }
+
+    .jersey-entry-label {
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 900;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
     }
 
     .status-pill {
@@ -1827,7 +2101,6 @@
     @media (max-width: 1180px) {
       .grid.two,
       .grid.three,
-      .history-strip,
       .detail-filter-panel,
       .entry-shell {
         grid-template-columns: 1fr;
@@ -1835,6 +2108,10 @@
 
       .metric-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .classification-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
       .stage-ribbon {
@@ -1946,6 +2223,10 @@
         align-items: center;
       }
 
+      .topbar-side {
+        justify-items: end;
+      }
+
       .top-logo {
         display: none;
       }
@@ -1989,6 +2270,10 @@
         grid-template-columns: 1fr;
       }
 
+      .classification-grid {
+        grid-template-columns: 1fr;
+      }
+
       .stage-list {
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
@@ -2003,6 +2288,26 @@
 
       .score-input-row input {
         text-align: left;
+      }
+
+      .jersey-entry-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .topbar-side {
+        width: 100%;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: center;
+        justify-items: start;
+      }
+
+      .updated-pill {
+        white-space: normal;
       }
 
       .score-cell {
@@ -2056,9 +2361,11 @@
           <h1 id="pageTitle">Classement Général Individuel</h1>
           <p class="subtitle" id="pageSubtitle">Le classement en direct de la fantasy, avec les écarts au leader, les écarts à la place précédente et les mouvements depuis la dernière étape complète.</p>
         </div>
-        <img class="top-logo" src="TDF Logo Light.png" alt="">
+        <div class="topbar-side">
+          <div class="updated-pill" id="lastUpdatedTop">Mis à jour -</div>
+          <img class="top-logo" src="TDF Logo Light.png" alt="">
+        </div>
       </header>
-      <div class="history-strip" id="historyStrip"></div>
       <div class="stage-ribbon" id="stageRibbon"></div>
 
       <section class="page active" id="page-general"></section>
@@ -2079,7 +2386,8 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const STORAGE_KEY = "fantasy-giro-2026-v1";
-    const APP_VERSION = "2026-06-11-1335";
+    const APP_VERSION = "2026-06-17-1300";
+    const TEST_SCORE_BATCH = "tour-2026-random-preview-2026-06-17";
     const SUPABASE_CONFIG = {
       url: "https://paxgisozkvofzmjztrwu.supabase.co",
       key: "sb_publishable_6HSHJ4TKGpSxvWhJUk7XXA_z1TW3Xrx",
@@ -2263,39 +2571,14 @@
         number: index + 1,
         name: "Étape " + (index + 1),
         cancelled: false,
+        greenJerseyPlayerId: "",
+        polkaJerseyPlayerId: "",
         scores: {}
       }));
 
-      const profiles = {
-        Quentin: { base: 355, sprint: 34, climb: 18 },
-        Pierre: { base: 340, sprint: 16, climb: 24 },
-        Nans: { base: 365, sprint: 22, climb: 42 },
-        Damien: { base: 348, sprint: 30, climb: 30 },
-        Robin: { base: 334, sprint: 12, climb: 48 },
-        Mathis: { base: 326, sprint: 26, climb: 37 },
-        "Émilien": { base: 318, sprint: 20, climb: 22 },
-        Sacha: { base: 351, sprint: 44, climb: 12 },
-        Agathe: { base: 329, sprint: 24, climb: 32 },
-        Lucie: { base: 336, sprint: 38, climb: 19 },
-        Stella: { base: 322, sprint: 18, climb: 34 },
-        Charles: { base: 345, sprint: 14, climb: 45 },
-        Orlane: { base: 331, sprint: 21, climb: 40 },
-        Ema: { base: 342, sprint: 36, climb: 21 },
-        Guillemette: { base: 338, sprint: 28, climb: 39 }
-      };
-
-      const sprintStages = new Set([1, 2, 6, 12, 13, 15, 18, 21]);
-      const climbStages = new Set([7, 9, 14, 16, 19, 20]);
-
       for (const stage of stages) {
-        for (const [playerIndex, player] of players.entries()) {
-          const profile = profiles[player.name];
-          let score = profile.base + wave(playerIndex, stage.number, 115);
-          score += sprintStages.has(stage.number) ? profile.sprint * 3 : 0;
-          score += climbStages.has(stage.number) ? profile.climb * 3 : 0;
-          score += stage.number % 5 === playerIndex % 5 ? 120 : 0;
-          score += stage.number % 7 === (playerIndex + 2) % 7 ? -80 : 0;
-          stage.scores[player.id] = Math.max(55, Math.round(score));
+        for (const player of players) {
+          stage.scores[player.id] = randomScore();
         }
       }
 
@@ -2309,13 +2592,32 @@
           blueStages: [7, 9, 14, 16, 19, 20]
         },
         riderTeams: buildDefaultRiderTeams(players),
+        previewScoresSeeded: true,
+        previewScoresBatch: TEST_SCORE_BATCH,
         updatedAt: new Date().toISOString()
       };
     }
 
-    function wave(playerIndex, stageNumber, amplitude) {
-      const value = Math.sin((playerIndex + 1) * 1.73 + stageNumber * 0.82) + Math.cos((playerIndex + 2) * 0.91 - stageNumber * 0.41);
-      return Math.round(value * amplitude * 0.5);
+    function randomScore() {
+      return 100 + Math.floor(Math.random() * 501);
+    }
+
+    function fillRandomScores(data = state.data) {
+      for (const stage of data.stages) {
+        stage.cancelled = false;
+        for (const player of data.players) {
+          stage.scores[player.id] = randomScore();
+        }
+      }
+      data.previewScoresSeeded = true;
+      data.previewScoresBatch = TEST_SCORE_BATCH;
+      data.updatedAt = new Date().toISOString();
+    }
+
+    function seedRandomScoresIfNeeded(data = state.data) {
+      if (!data || data.previewScoresBatch === TEST_SCORE_BATCH) return false;
+      fillRandomScores(data);
+      return true;
     }
 
     function slugify(value) {
@@ -2839,11 +3141,13 @@
         if (error) throw error;
         if (data?.data) {
           state.data = normalizeData(data.data);
+          const seeded = seedRandomScoresIfNeeded(state.data);
           saveLocalData();
           resetSelectionsAfterDataChange();
           state.cloudLoaded = true;
-          setSyncStatus("saved", "Données cloud chargées");
+          setSyncStatus("saved", seeded ? "Données test générées" : "Données cloud chargées");
           renderApp();
+          if (seeded) queueCloudSave(true);
           return;
         }
         setSyncStatus(state.supabaseUser ? "saving" : "local", state.supabaseUser ? "Aucune donnée cloud" : "Connecte-toi pour sauvegarder");
@@ -2925,6 +3229,8 @@
         stages: Array.isArray(data.stages) ? data.stages : fallback.stages,
         rules: data.rules || fallback.rules,
         riderTeams: data.riderTeams || fallback.riderTeams,
+        previewScoresSeeded: Boolean(data.previewScoresSeeded),
+        previewScoresBatch: data.previewScoresBatch || "",
         updatedAt: data.updatedAt || new Date().toISOString()
       };
       normalized.players = normalized.players.map((player, index) => ({
@@ -2945,6 +3251,8 @@
           number,
           name: "Étape " + number,
           cancelled: Boolean(stage.cancelled),
+          greenJerseyPlayerId: playerIds.has(stage.greenJerseyPlayerId) ? stage.greenJerseyPlayerId : "",
+          polkaJerseyPlayerId: playerIds.has(stage.polkaJerseyPlayerId) ? stage.polkaJerseyPlayerId : "",
           scores: stage.scores && typeof stage.scores === "object" ? stage.scores : {}
         };
         for (const id of playerIds) {
@@ -3188,11 +3496,64 @@
       return records;
     }
 
+    function currentTeamLeaderNames() {
+      const ranking = teamRanking();
+      const leader = ranking[0];
+      if (!leader) return new Set();
+      return new Set(ranking.filter((row) => row.score === leader.score).map((row) => row.team));
+    }
+
+    function renderPlayerBadges(player, records = raceStageRecords(), leaderTeams = currentTeamLeaderNames()) {
+      const badges = [];
+      const wins = records[player.id]?.wins || 0;
+      for (let index = 0; index < wins; index += 1) {
+        badges.push(`<span class="award-badge stage-win" title="Victoire d'étape"><img src="Médaille vainqueur étape.png" alt="Victoire d'étape"></span>`);
+      }
+      if (player.team && leaderTeams.has(player.team)) {
+        badges.push(`<span class="award-badge team-leader" title="Équipe leader"><img src="Dossard meilleure équipe.jpg" alt="Équipe leader"></span>`);
+      }
+      return badges.length ? `<span class="name-awards">${badges.join("")}</span>` : "";
+    }
+
+    function latestStageWithManualJersey(field) {
+      return state.data.stages
+        .filter((stage) => !stage.cancelled && getPlayer(stage[field]))
+        .at(-1) || null;
+    }
+
+    function latestManualJerseyPlayer(field) {
+      const stage = latestStageWithManualJersey(field);
+      return stage ? getPlayer(stage[field]) : null;
+    }
+
+    function latestStageWinner() {
+      const lastRaceStage = completedStages().filter((stage) => !stage.cancelled).at(-1);
+      if (!lastRaceStage) return null;
+      const winners = stageRanking(lastRaceStage).filter((row) => row.rank === 1).map((row) => row.player);
+      return { stage: lastRaceStage, winners };
+    }
+
+    function classificationCard({ label, image, value, note = "", className = "", wide = false }) {
+      return `
+        <article class="classification-card ${className}">
+          <div class="classification-label">${escapeHtml(label)}</div>
+          <div class="classification-body">
+            <div class="classification-visual ${wide ? "wide" : ""}">
+              <img src="${escapeAttr(image)}" alt="${escapeAttr(label)}">
+            </div>
+            <div>
+              <div class="classification-name">${escapeHtml(value || "-")}</div>
+              ${note ? `<div class="classification-note">${escapeHtml(note)}</div>` : ""}
+            </div>
+          </div>
+        </article>
+      `;
+    }
+
     function renderApp() {
       renderNav();
       renderHeader();
       renderSidebarSummary();
-      renderHistoryStrip();
       renderStageRibbon();
       document.querySelectorAll(".page").forEach((page) => page.classList.toggle("active", page.id === "page-" + state.activePage));
       const renderers = {
@@ -3239,6 +3600,8 @@
       document.getElementById("pageEyebrow").textContent = "Le Tour";
       document.getElementById("pageTitle").textContent = item.title;
       document.getElementById("pageSubtitle").textContent = item.subtitle;
+      const updated = document.getElementById("lastUpdatedTop");
+      if (updated) updated.textContent = "Mis à jour " + formatUpdatedAt(state.data.updatedAt);
     }
 
     function renderSidebarSummary() {
@@ -3255,21 +3618,6 @@
       `;
     }
 
-    function renderHistoryStrip() {
-      const target = document.getElementById("historyStrip");
-      if (!target) return;
-      const complete = completedStages();
-      const lastComplete = complete[complete.length - 1];
-      const nextIncomplete = state.data.stages.find((stage) => !isStageComplete(stage));
-      const leader = overallRanking()[0];
-      target.innerHTML = `
-        ${historyItem("Dernière étape validée", lastComplete ? lastComplete.name : "Aucune")}
-        ${historyItem("Prochaine saisie", nextIncomplete ? nextIncomplete.name : "Course complète")}
-        ${historyItem("Leader actuel", leader ? leader.player.name : "-")}
-        ${historyItem("Dernière mise à jour", formatUpdatedAt(state.data.updatedAt))}
-      `;
-    }
-
     function renderStageRibbon() {
       const target = document.getElementById("stageRibbon");
       if (!target) return;
@@ -3277,8 +3625,9 @@
         const completion = stageCompletion(stage);
         const label = shortStageLabel(stage.name);
         const statusLabel = stage.cancelled ? "annulée" : completion.status === "complete" ? "ok" : completion.status === "partial" ? completion.count + "/" + completion.total : "vide";
+        const breakClass = stage.number === 8 || stage.number === 15 ? "stage-break" : "";
         return `
-          <button class="ribbon-stage ${completion.status} ${stage.id === state.selectedStageId ? "active" : ""}" type="button" data-ribbon-stage="${stage.id}" title="${escapeHtml(stage.name)} - ${escapeHtml(statusLabel)}">
+          <button class="ribbon-stage ${completion.status} ${breakClass} ${stage.id === state.selectedStageId ? "active" : ""}" type="button" data-ribbon-stage="${stage.id}" title="${escapeHtml(stage.name)} - ${escapeHtml(statusLabel)}">
             <span>${escapeHtml(label)}</span>
             <small>${escapeHtml(statusLabel)}</small>
           </button>
@@ -3291,15 +3640,6 @@
           renderApp();
         });
       });
-    }
-
-    function historyItem(label, value) {
-      return `
-        <div class="history-item">
-          <div class="history-label">${escapeHtml(label)}</div>
-          <div class="history-value">${escapeHtml(value)}</div>
-        </div>
-      `;
     }
 
     function formatUpdatedAt(value) {
@@ -3320,24 +3660,62 @@
       const leader = ranking[0];
       const maxScore = Math.max(1, ...ranking.map((row) => row.score));
       const movement = previousMovementMap();
+      const stageRecords = raceStageRecords();
+      const leaderTeams = currentTeamLeaderNames();
+      const greenLeader = latestManualJerseyPlayer("greenJerseyPlayerId");
+      const greenStage = latestStageWithManualJersey("greenJerseyPlayerId");
+      const polkaLeader = latestManualJerseyPlayer("polkaJerseyPlayerId");
+      const polkaStage = latestStageWithManualJersey("polkaJerseyPlayerId");
+      const whiteLeader = whiteRanking()[0];
+      const lastWinner = latestStageWinner();
+      const teamLeader = teamRanking()[0];
 
       page.innerHTML = `
-        <div class="metric-grid">
-          ${metric("Leader", leader ? leader.player.name : "-", leader ? formatNumber(leader.score) + " pts" : "Aucun score")}
-          ${metric("Étapes intégrées", complete.length + "/" + state.data.stages.length, "Partielles ignorées")}
-          ${metric("Meilleur jeune", whiteRanking()[0]?.player.name || "-", whiteRanking()[0] ? formatNumber(whiteRanking()[0].score) + " pts" : "Aucun éligible")}
-          ${metric("Joueurs", state.data.players.length, teamNames().length + " équipes actives")}
+        <div class="classification-grid">
+          ${classificationCard({
+            label: "Maillot Jaune",
+            image: "Maillot Jaune.png",
+            value: leader?.player.name || "-",
+            note: leader ? "1er au classement général" : "Aucun score",
+            className: "yellow"
+          })}
+          ${classificationCard({
+            label: "Maillot Vert",
+            image: "Maillot Vert.png",
+            value: greenLeader?.name || "À saisir",
+            note: greenStage ? "Saisi sur " + greenStage.name : "Dans Points étapes",
+            className: "green"
+          })}
+          ${classificationCard({
+            label: "Maillot à Pois",
+            image: "Maillot à Pois.png",
+            value: polkaLeader?.name || "À saisir",
+            note: polkaStage ? "Saisi sur " + polkaStage.name : "Dans Points étapes",
+            className: "polka"
+          })}
+          ${classificationCard({
+            label: "Maillot Blanc",
+            image: "Maillot Blanc.png",
+            value: whiteLeader?.player.name || "-",
+            note: whiteLeader ? "1er joueur éligible" : "Aucun éligible",
+            className: "white"
+          })}
+          ${classificationCard({
+            label: "Dernier vainqueur d'étape",
+            image: "Médaille vainqueur étape.png",
+            value: lastWinner?.winners.map((player) => player.name).join(", ") || "-",
+            note: lastWinner ? lastWinner.stage.name : "Aucune étape complète",
+            className: "winner"
+          })}
+          ${classificationCard({
+            label: "Meilleure équipe",
+            image: "Dossard meilleure équipe.jpg",
+            value: teamLeader?.team || "-",
+            note: teamLeader ? "1ère au classement par équipe" : "Aucune équipe",
+            className: "team",
+            wide: true
+          })}
         </div>
-        ${renderRaceBrief(ranking, movement)}
-        ${leader ? `
-          <div class="leader-strip">
-            <img src="Maillot Jaune.png" alt="Maillot Jaune">
-            <div>
-              <div class="leader-name">${escapeHtml(leader.player.name)}</div>
-              <p class="leader-copy">Porteur virtuel du Maillot Jaune avec ${formatNumber(leader.score)} points au classement général.</p>
-            </div>
-          </div>
-        ` : ""}
         <div class="panel">
           <h2 class="panel-title">Classement <small>Écart vs 1ère place et joueur précédent</small></h2>
           ${ranking.length ? `<div class="ranking-list">${ranking.map((row, index) => {
@@ -3352,6 +3730,7 @@
                   <div class="player-name">
                     <span class="color-dot" style="background:${row.player.color}"></span>
                     <span class="name">${escapeHtml(row.player.name)}</span>
+                    ${renderPlayerBadges(row.player, stageRecords, leaderTeams)}
                     <span class="movement ${move.className}">${move.text}</span>
                     ${renderTiePill(row, ranking)}
                   </div>
@@ -3489,7 +3868,11 @@
           <g class="chart-series" data-series-key="${escapeAttr(key)}">
             <path class="line-path" d="${path}" stroke="${color}"></path>
             <path class="chart-hit-line" d="${path}"></path>
-            ${coords.map((coord) => `<circle class="chart-point" cx="${coord.x.toFixed(1)}" cy="${coord.y.toFixed(1)}" r="4" fill="${color}"><title>${escapeHtml(label)} - ${escapeHtml(coord.stage)} : ${formatNumber(coord.value)}</title></circle>`).join("")}
+            ${coords.map((coord) => {
+              const formattedValue = type === "rank" ? "#" + formatNumber(coord.value) : formatNumber(coord.value);
+              const tooltip = `${label} · ${coord.stage} · ${valueLabel} : ${formattedValue}`;
+              return `<circle class="chart-point" cx="${coord.x.toFixed(1)}" cy="${coord.y.toFixed(1)}" r="4" fill="${color}" data-tooltip="${escapeAttr(tooltip)}"><title>${escapeHtml(tooltip)}</title></circle>`;
+            }).join("")}
           </g>
         `;
       }).join("");
@@ -3508,6 +3891,7 @@
           <line class="chart-axis" x1="${margin.left}" y1="${margin.top + chartHeight}" x2="${width - margin.right}" y2="${margin.top + chartHeight}"></line>
           ${paths}
         </svg>
+        <div class="chart-tooltip" aria-hidden="true"></div>
       `;
     }
 
@@ -3545,6 +3929,8 @@
       root.querySelectorAll(".wide-chart-panel").forEach((panel) => {
         const svg = panel.querySelector(".chart-svg");
         const legend = panel.querySelector(".legend");
+        const chartWrap = panel.querySelector(".chart-wrap");
+        const tooltip = panel.querySelector(".chart-tooltip");
         if (!svg) return;
         const setActive = (key) => {
           svg.classList.toggle("has-hover", Boolean(key));
@@ -3552,11 +3938,26 @@
           svg.querySelectorAll("[data-series-key]").forEach((item) => item.classList.toggle("active", item.dataset.seriesKey === key));
           legend?.querySelectorAll("[data-series-key]").forEach((item) => item.classList.toggle("active", item.dataset.seriesKey === key));
         };
+        const showTooltip = (event, text) => {
+          if (!tooltip || !chartWrap || !text) return;
+          const rect = chartWrap.getBoundingClientRect();
+          tooltip.textContent = text;
+          tooltip.style.left = Math.min(rect.width - 18, Math.max(8, event.clientX - rect.left)) + "px";
+          tooltip.style.top = Math.max(10, event.clientY - rect.top) + "px";
+          tooltip.classList.add("show");
+        };
+        const hideTooltip = () => tooltip?.classList.remove("show");
         panel.querySelectorAll("[data-series-key]").forEach((item) => {
           item.addEventListener("mouseenter", () => setActive(item.dataset.seriesKey));
           item.addEventListener("focus", () => setActive(item.dataset.seriesKey));
           item.addEventListener("mouseleave", () => setActive(""));
           item.addEventListener("blur", () => setActive(""));
+        });
+        panel.querySelectorAll("[data-tooltip]").forEach((item) => {
+          item.addEventListener("mouseenter", (event) => showTooltip(event, item.dataset.tooltip));
+          item.addEventListener("mousemove", (event) => showTooltip(event, item.dataset.tooltip));
+          item.addEventListener("mouseleave", hideTooltip);
+          item.addEventListener("blur", hideTooltip);
         });
       });
     }
@@ -3778,22 +4179,6 @@
       `;
     }
 
-    function renderRaceBrief(ranking, movement) {
-      const lastRaceStage = completedStages().filter((stage) => !stage.cancelled).at(-1);
-      const lastWinner = lastRaceStage ? stageRanking(lastRaceStage).filter((row) => row.rank === 1).map((row) => row.player.name).join(", ") : "-";
-      const bestMover = ranking
-        .map((row) => ({ player: row.player, move: movement[row.player.id] || 0 }))
-        .sort((a, b) => b.move - a.move || a.player.name.localeCompare(b.player.name, "fr"))[0];
-      return `
-        <div class="editorial-band">
-          <div>
-            <div class="editorial-title">Résumé de course</div>
-            <p class="editorial-note">Dernier vainqueur d'étape : <strong>${escapeHtml(lastWinner)}</strong>. Plus forte progression : <strong>${bestMover && bestMover.move > 0 ? escapeHtml(bestMover.player.name) + " +" + bestMover.move : "aucune progression"}</strong>.</p>
-          </div>
-        </div>
-      `;
-    }
-
     function renderPlayerDetail(playerId, stages = state.data.stages) {
       const player = getPlayer(playerId);
       if (!player) return emptyState("Aucun joueur sélectionné.");
@@ -3894,6 +4279,8 @@
 
     function renderRiderManagerCards(countMap, abandonedMap, query = "", teamFilter = "") {
       const assignments = state.data.riderTeams?.assignments || {};
+      const stageRecords = raceStageRecords();
+      const leaderTeams = currentTeamLeaderNames();
       return state.data.players.map((player) => {
         const riders = (assignments[player.id] || []).map(riderFromEntry);
         const visibleRiders = riders.filter((rider) => {
@@ -3911,7 +4298,7 @@
           <article class="manager-card">
             <div class="manager-head">
               <div>
-                <div class="manager-name"><span class="color-dot" style="background:${player.color}"></span>${escapeHtml(player.name)}</div>
+                <div class="manager-name"><span class="color-dot" style="background:${player.color}"></span><span class="name">${escapeHtml(player.name)}</span>${renderPlayerBadges(player, stageRecords, leaderTeams)}</div>
                 <div class="tag-row">
                   <span class="tag green">${activeCount}/${riders.length} en course</span>
                   ${abandonedCount ? `<span class="tag red">${abandonedCount} abandon${abandonedCount > 1 ? "s" : ""}</span>` : ""}
@@ -4324,6 +4711,10 @@
               <button class="secondary-btn" type="button" id="clearStage" ${disabled}>${icon("reset")}Vider cette saisie</button>
             </div>
             <div id="entryStageNotice">${renderEntryStageNotice(activeStage)}</div>
+            <div class="jersey-entry-grid">
+              ${manualJerseySelect("Maillot Vert", "Maillot Vert.png", "greenJerseyPlayerId", activeStage.greenJerseyPlayerId, activeStage.cancelled || !canEdit)}
+              ${manualJerseySelect("Maillot à Pois", "Maillot à Pois.png", "polkaJerseyPlayerId", activeStage.polkaJerseyPlayerId, activeStage.cancelled || !canEdit)}
+            </div>
             <div class="score-form">
               ${state.data.players.map((player) => `
                 <label class="score-input-row ${activeStage.cancelled ? "disabled" : ""}">
@@ -4355,6 +4746,15 @@
           refreshEntryVisuals(activeStage);
         });
       });
+      page.querySelectorAll("[data-manual-jersey]").forEach((select) => {
+        select.addEventListener("change", () => {
+          if (!requireEditor()) return;
+          activeStage[select.dataset.manualJersey] = select.value;
+          saveData();
+          renderSidebarSummary();
+          showToast("Maillot enregistré.");
+        });
+      });
       document.getElementById("stageCancelled")?.addEventListener("change", (event) => {
         if (!requireEditor()) return;
         activeStage.cancelled = event.target.checked;
@@ -4365,10 +4765,27 @@
         if (!requireEditor()) return;
         if (!confirm("Vider les points de " + activeStage.name + " ?")) return;
         activeStage.cancelled = false;
+        activeStage.greenJerseyPlayerId = "";
+        activeStage.polkaJerseyPlayerId = "";
         for (const player of state.data.players) activeStage.scores[player.id] = null;
         saveData();
         renderEntry();
       });
+    }
+
+    function manualJerseySelect(label, image, field, selectedId, disabled) {
+      return `
+        <div class="jersey-entry-card">
+          <img src="${escapeAttr(image)}" alt="${escapeAttr(label)}">
+          <label>
+            <span class="jersey-entry-label">${escapeHtml(label)}</span>
+            <select class="select" data-manual-jersey="${escapeAttr(field)}" ${disabled ? "disabled" : ""}>
+              <option value="">À saisir</option>
+              ${state.data.players.map((player) => `<option value="${player.id}" ${player.id === selectedId ? "selected" : ""}>${escapeHtml(player.name)}</option>`).join("")}
+            </select>
+          </label>
+        </div>
+      `;
     }
 
     function renderEntryStageNotice(stage) {
@@ -4693,7 +5110,11 @@
       }
       if (!confirm("Supprimer définitivement " + player.name + " et tous ses scores ?")) return;
       state.data.players = state.data.players.filter((item) => item.id !== playerId);
-      for (const stage of state.data.stages) delete stage.scores[playerId];
+      for (const stage of state.data.stages) {
+        delete stage.scores[playerId];
+        if (stage.greenJerseyPlayerId === playerId) stage.greenJerseyPlayerId = "";
+        if (stage.polkaJerseyPlayerId === playerId) stage.polkaJerseyPlayerId = "";
+      }
       if (state.data.riderTeams?.assignments) delete state.data.riderTeams.assignments[playerId];
       if (state.data.riderTeams?.changeCounts) delete state.data.riderTeams.changeCounts[playerId];
       if (state.data.riderTeams?.changeHistory) state.data.riderTeams.changeHistory = state.data.riderTeams.changeHistory.filter((entry) => entry.playerId !== playerId);
@@ -4762,8 +5183,12 @@
       if (!confirm("Vider tous les scores et conserver les joueurs ?")) return;
       for (const stage of state.data.stages) {
         stage.cancelled = false;
+        stage.greenJerseyPlayerId = "";
+        stage.polkaJerseyPlayerId = "";
         for (const player of state.data.players) stage.scores[player.id] = null;
       }
+      state.data.previewScoresSeeded = true;
+      state.data.previewScoresBatch = TEST_SCORE_BATCH;
       saveData();
       showToast("Scores vidés.");
       renderApp();
@@ -4797,6 +5222,7 @@
 
     function bootstrap() {
       state.data = loadData();
+      seedRandomScoresIfNeeded(state.data);
       state.selectedPlayers = new Set(state.data.players.map((player) => player.id));
       state.selectedDetailPlayerId = state.data.players[0]?.id || null;
       saveData({ localOnly: true });
