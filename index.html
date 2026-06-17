@@ -10,7 +10,7 @@
   <style>
     @font-face {
       font-family: "Galibier";
-      src: url("fonts/Galibier-Regular.otf") format("opentype");
+      src: url("Galibier-Regular.otf") format("opentype");
       font-weight: 400;
       font-style: normal;
       font-display: swap;
@@ -18,7 +18,7 @@
 
     @font-face {
       font-family: "Galibier";
-      src: url("fonts/Galibier-Bold.otf") format("opentype");
+      src: url("Galibier-Bold.otf") format("opentype");
       font-weight: 900;
       font-style: normal;
       font-display: swap;
@@ -26,7 +26,7 @@
 
     @font-face {
       font-family: "Galibier Etroit";
-      src: url("fonts/Galibier-EtroitBold.otf") format("opentype");
+      src: url("Galibier-EtroitBold.otf") format("opentype");
       font-weight: 900;
       font-style: normal;
       font-display: swap;
@@ -58,7 +58,7 @@
       --shadow: 0 18px 48px rgba(6, 27, 58, 0.10);
       --radius: 8px;
       --font-title: "Galibier Etroit", "Galibier", Arial, Helvetica, sans-serif;
-      --font-body: Arial, Helvetica, sans-serif;
+      --font-body: "Galibier", Arial, Helvetica, sans-serif;
     }
 
     * {
@@ -78,6 +78,13 @@
         repeating-linear-gradient(135deg, rgba(0, 91, 170, 0.045) 0 2px, transparent 2px 28px),
         var(--paper);
       min-height: 100vh;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font-family: var(--font-body);
     }
 
     button,
@@ -2139,30 +2146,30 @@
     ];
 
     const TEAMS = [
-      { id: "alpecin", name: "Alpecin Premier Tech", image: "Nouveaux Maillots/Alpecin - Premier Tech.png" },
-      { id: "bahrain", name: "Bahrain Victorious", image: "Nouveaux Maillots/Bahrain - Victorious.png" },
+      { id: "alpecin", name: "Alpecin Premier Tech", image: "Alpecin - Premier Tech.png" },
+      { id: "bahrain", name: "Bahrain Victorious", image: "Bahrain - Victorious.png" },
       { id: "bardiani", name: "Bardiani CSF - Faizanè", image: "bardiani-csf-7-saber-2026.png" },
-      { id: "cofidis", name: "Cofidis", image: "Nouveaux Maillots/Cofidis.png" },
-      { id: "decathlon", name: "Decathlon CMA CGM Team", image: "Nouveaux Maillots/Decathlon CMA CGM Team.png" },
-      { id: "ef", name: "EF Education - EasyPost", image: "Nouveaux Maillots/EF Education - EasyPost.png" },
-      { id: "groupama", name: "Groupama-FDJ United", image: "Nouveaux Maillots/Groupama - FDJ United.png" },
-      { id: "ineos", name: "INEOS Grenadiers", image: "Nouveaux Maillots/Netcompany INEOS.png" },
-      { id: "lidl", name: "Lidl-Trek", image: "Nouveaux Maillots/Lidl - Trek.png" },
-      { id: "lotto", name: "Lotto Intermarché", image: "Nouveaux Maillots/Lotto Intermarché.png" },
-      { id: "movistar", name: "Movistar Team", image: "Nouveaux Maillots/Movistar Team.png" },
-      { id: "nsn", name: "NSN Cycling Team", image: "Nouveaux Maillots/NSN Cycling Team.png" },
-      { id: "pinarello", name: "Pinarello Q36.5 Pro Cycling Team", image: "Nouveaux Maillots/Pinarello Q36.5 Pro Cycling Team.png" },
-      { id: "redbull", name: "Red Bull - BORA - hansgrohe", image: "Nouveaux Maillots/Red Bull - BORA - hansgrohe.png" },
-      { id: "soudal", name: "Soudal Quick-Step", image: "Nouveaux Maillots/Soudal Quick-Step.png" },
-      { id: "jayco", name: "Team Jayco AlUla", image: "Nouveaux Maillots/Team Jayco AlUla.png" },
-      { id: "picnic", name: "Team Picnic PostNL", image: "Nouveaux Maillots/Team Picnic PostNL.png" },
+      { id: "cofidis", name: "Cofidis", image: "Cofidis.png" },
+      { id: "decathlon", name: "Decathlon CMA CGM Team", image: "Decathlon CMA CGM Team.png" },
+      { id: "ef", name: "EF Education - EasyPost", image: "EF Education - EasyPost.png" },
+      { id: "groupama", name: "Groupama-FDJ United", image: "Groupama - FDJ United.png" },
+      { id: "ineos", name: "INEOS Grenadiers", image: "Netcompany INEOS.png" },
+      { id: "lidl", name: "Lidl-Trek", image: "Lidl - Trek.png" },
+      { id: "lotto", name: "Lotto Intermarché", image: "Lotto Intermarché.png" },
+      { id: "movistar", name: "Movistar Team", image: "Movistar Team.png" },
+      { id: "nsn", name: "NSN Cycling Team", image: "NSN Cycling Team.png" },
+      { id: "pinarello", name: "Pinarello Q36.5 Pro Cycling Team", image: "Pinarello Q36.5 Pro Cycling Team.png" },
+      { id: "redbull", name: "Red Bull - BORA - hansgrohe", image: "Red Bull - BORA - hansgrohe.png" },
+      { id: "soudal", name: "Soudal Quick-Step", image: "Soudal Quick-Step.png" },
+      { id: "jayco", name: "Team Jayco AlUla", image: "Team Jayco AlUla.png" },
+      { id: "picnic", name: "Team Picnic PostNL", image: "Team Picnic PostNL.png" },
       { id: "polti", name: "Team Polti VisitMalta", image: "team-polti-visitmalta-2026.png" },
-      { id: "visma", name: "Team Visma Lease a Bike", image: "Nouveaux Maillots/Team Visma Lease a Bike.png" },
-      { id: "tudor", name: "Tudor Pro Cycling Team", image: "Nouveaux Maillots/Tudor Pro Cycling Team.png" },
-      { id: "uae", name: "UAE Team Emirates XRG", image: "Nouveaux Maillots/UAE Team Emirates - XRG.png" },
+      { id: "visma", name: "Team Visma Lease a Bike", image: "Team Visma Lease a Bike.png" },
+      { id: "tudor", name: "Tudor Pro Cycling Team", image: "Tudor Pro Cycling Team.png" },
+      { id: "uae", name: "UAE Team Emirates XRG", image: "UAE Team Emirates - XRG.png" },
       { id: "unibet", name: "Unibet Rose Rockets", image: "unibet-rose-rockets-2026.png" },
-      { id: "unox", name: "Uno-X Mobility", image: "Nouveaux Maillots/Uno-X Mobility.png" },
-      { id: "astana", name: "XDS Astana Team", image: "Nouveaux Maillots/XDS Astana Team.png" }
+      { id: "unox", name: "Uno-X Mobility", image: "Uno-X Mobility.png" },
+      { id: "astana", name: "XDS Astana Team", image: "XDS Astana Team.png" }
     ];
     const PDF_STARTLIST_RAW = "procyclingstats.comGiro d'Italia   |   2026\n08/05/2026 - 31/05/2026   |   3468 km    |    184 starting\n1 Alpecin - Premier Tech\n1. GROVES Kaden\n2. BAYER Tobias\n3. BUSATTO Francesco\n4. GEENS Jonas\n5. PLANCKAERT Edward\n6. PLOWRIGHT Jensen\n7. PRICE-PEJTERSEN Johan\n8. VERGALLITO Luca\nDS: MEERSMAN Gianni,VAN HECKE\nPreben\n2 Bahrain - Victorious\n11. BUITRAGO Santiago\n12. CARUSO Damiano\n13. STANNARD Robert\n14. MIHOLJEVIC Fran\n15. EULALIO Afonso\n16. PAASSCHENS Mathijs\n17. SEGAERT Alec\n18. ZAMBANINI Edoardo\nDS: PELLIZOTTI Franco,ŠTANGELJ Gorazd\n3 Bardiani CSF 7 Saber\n21. MAGLI Filippo\n22. MARCELLUSI Martin\n23. PALETTI Luca\n24. ROJAS Vicente\n25. TAROZZI Manuele\n26. TSVETKOV Nikita\n27. TURCONI Filippo\n28. ZANONCELLO Enrico\nDS: REVERBERI Roberto,ROSSATO Mirko\n4 Decathlon CMA CGM Team\n31. GALL Felix\n32. ANDRESEN Tobias Lund\n33. GUDMESTAD Tord\n34. MUHLBERGER Gregor\n35. NAESEN Oliver\n36. PEDERSEN Rasmus Sojberg\n37. SCOTSON Callum\n38. STAUNE-MITTET Johannes\nDS: HAUSSLER Heinrich,ROBERTS Luke\n5 EF Education - EasyPost\n41. CEPEDA Jefferson Alexander\n42. BATTISTELLA Samuele\n43. BELOKI Markel\n44. MIHKELS Madis\n45. RAFFERTY Darren\n46. SHAW James\n47. VALGREN Michael\n48. VAN DER LEE Jardi Christiaan\nDS: GARATE Juan Manuel,LANGEVELD\nSebastian\n6 Groupama - FDJ United\n51. CAVAGNA Remi\n52. BARTHE Cyril\n53. HUENS Axel\n54. JACOBS Johan\n55. KENCH Josh\n56. PENHOET Paul\n57. ROCHAS Remy\n58. ROLLAND Brieuc\nDS: GREEN William,GUESDON Frédéric\n7 Lidl - Trek\n61. CICCONE Giulio\n62. CONSONNI Simone\n63. GEE-WEST Derek\n64. GHEBREIGZABHIER Amanuel\n65. MILAN Jonathan\n66. SOBRERO Matteo\n67. TEUTENBERG Tim Torn\n68. WALSCHEID Max\nDS: EISEL Bernhard,RAST Grégory\n8 Lotto Intermarché\n71. DE LIE Arnaud\n72. AERTS Toon\n73. GUALDI Simone\n74. MENTEN Milan\n75. ROTA Lorenzo\n76. RUTSCH Jonas\n77. GIDDINGS Joshua\n78. VAN EETVELT Lennert\nDS: BOUET Maxime,WELLENS Bart\n9 Movistar Team\n81. MAS Enric\n82. AULAR Orluis\n83. GARCIA CORTINA Ivan\n84. LOPEZ Juan Pedro\n85. MILESI Lorenzo\n86. OLIVEIRA Nelson\n87. ROMO Javier\n88. RUBIO Einer\nDS: SCIANDRI Maximilian,WHITE Matthew\n10 Netcompany INEOS\n91. BERNAL Egan\n92. ARENSMAN Thymen\n93. GANNA Filippo\n94. HAIG Jack\n95. SHEFFIELD Magnus\n96. SVESTAD-BARDSENG Embret\n97. SWIFT Connor\n98. TURNER Ben\nDS: ARVESEN Kurt-Asle,BASSO Leonardo\n11 NSN Cycling Team\n101.PINARELLO Alessandro\n102.HIRT Jan\n103.MULLEN Ryan\n104.SCHULTZ Nick\n105.SMITH Dion\n106.STEWART Jake\n107.STRONG Corbin\n109.VERNON Ethan\nDS: CATAFORD Alexander,CLAEYS Dimitri\n12 Pinarello Q36.5 Pro Cycling\nTeam\n111.BAX Sjoerd\n112.CHRISTEN Fabio\n113.DE LA CRUZ David\n114.DONOVAN Mark\n115.GONZALEZ David\n116.HARPER Chris\n117.MOSCHETTI Matteo\n118.ZUKOWSKY Nickolas\nDS: MISSAGLIA Gabriele,NIERI Daniele\n13 Red Bull - BORA -\nhansgrohe\n121.HINDLEY Jai\n122.ALEOTTI Giovanni\n123.DENZ Nico\n124.MOSCON Gianni\n125.PELLIZZARI Giulio\n126.VAN DIJKE Mick\n127.VLASOV Aleksandr\n128.ZWIEHOFF Ben\nDS: COOKSON Oliver,PÖMER Christian\n14 Soudal Quick-Step\n131.MAGNIER Paul\n132.BASTIAENS Ayco\n133.GAROFOLI Gianmarco\n134.RACCAGNI NOVIERO Andrea\n135.STUYVEN Jasper\n136.VAN DEN BOSSCHE Fabio\n137.VAN GESTEL Dries\n138.ZANA Filippo\nDS: BRAMATI Davide,HULSMANS Kevin\n15 Team Jayco AlUla\n141.O'CONNOR Ben\n142.ACKERMANN Pascal\n143.BOUWMAN Koen\n144.DONALDSON Robert\n145.ENGELHARDT Felix\n146.HATHERLY Alan\n147.JUUL-JENSEN Christopher\n148.VENDRAME Andrea\nDS: CUMMINGS Steve,WEENING Pieter\n16 Team Picnic PostNL\n151.BARGUIL Warren\n152.DE JONG Timo\n153.FLYNN Sean\n154.HAMILTON Chris\n155.LEEMREIZE Gijs\n156.NABERMAN Tim\n157.VAN DEN BROEK Frank\n158.VAN UDEN Casper\nDS: WEST Philip,WINSTON Matthew\n17 Team Polti VisitMalta\n161.BAIS Mattia\n162.CRESCIOLI Ludovico\n163.LONARDI Giovanni\n164.MAESTRI Mirco\n165.MIFSUD Andrea\n166.PESENTI Thomas\n167.SEVILLA Diego Pablo\n168.TONELLI Alessandro\nDS: ELLENA Giovanni,GAVAZZI Francesco\n18 Team Visma | Lease a Bike\n171.VINGEGAARD Jonas\n172.CAMPENAERTS Victor\n173.KELDERMAN Wilco\n174.KIELICH Timo\n175.KUSS Sepp\n176.LEMMEN Bart\n177.PIGANZOLI Davide\n178.REX Tim\nDS: REEF Marc,VAN DONGEN Arthur\n19 Tudor Pro Cycling Team\n181.STORER Michael\n182.BARTA Will\n183.FROIDEVAUX Robin\n184.LIENHARD Fabian\n185.MOZZATO Luca\n186.RONDEL Mathys\n187.STORK Florian\n188.WARBASSE Larry\nDS: SIEBERG Marcel,TOSATTO Matteo\n20 UAE Team Emirates - XRG\n191.YATES Adam\n192.ARRIETA Igor\n193.BJERG Mikkel\n194.CHRISTEN Jan\n195.NARVAEZ Jhonatan\n196.SOLER Marc\n197.MORGADO Antonio\n198.VINE Jay\nDS: BALDATO Fabio,MARCATO Marco\n21 Unibet Rose Rockets\n201.GROENEWEGEN Dylan\n202.DE VRIES Hartthijs\n203.KOPECKY Matyas\n204.KOPECKY Tomas\n205.KUBIS Lukas\n206.LARSEN Niklas\n207.POELS Wout\n208.REINDERS Elmar\nDS: HAMMOND Roger,VIK Sverre\nDyngeland\n22 Uno-X Mobility\n211.HOELGAARD Markus\n212.HOLTER Adne\n213.KULSET Johannes\n214.DVERSNES LAVIK Fredrik\n215.LEKNESSUND Andreas\n216.BLIKRA Erlend\n217.LOLAND Sakarias Koller\n218.TJOTTA Martin\nDS: BLAUDZUN Michael,KØRNER Max\nEmil,VINJEBO Emil Mielke\n23 XDS Astana Team\n221.BALLERINI Davide\n222.BETTIOL Alberto\n223.LIVYNS Arjen\n224.LOPEZ Harold Martin\n225.MALUCELLI Matteo\n226.SCARONI Christian\n227.SILVA Guillermo Thomas\n228.ULISSI Diego\nDS: CATALDO Dario,SHEFER Alexandr";
     const TEAM_NAME_TO_ID = {
