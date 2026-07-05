@@ -1454,6 +1454,10 @@
       border-bottom: 1px solid var(--line);
     }
 
+    .manager-head > div {
+      min-width: 0;
+    }
+
     .manager-name {
       display: flex;
       align-items: center;
@@ -1470,6 +1474,29 @@
       text-overflow: ellipsis;
     }
 
+    .manager-stars {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      min-height: 30px;
+      padding: 6px 9px;
+      border-radius: 99px;
+      background: #050505;
+      color: white;
+      font-family: var(--font-title);
+      font-size: 17px;
+      font-weight: 900;
+      line-height: 1;
+      white-space: nowrap;
+      box-shadow: 0 10px 18px rgba(0, 0, 0, 0.16);
+    }
+
+    .manager-stars span {
+      color: var(--yellow);
+      font-size: 14px;
+      line-height: 1;
+    }
+
     .rider-list {
       display: grid;
     }
@@ -1482,6 +1509,22 @@
       gap: 10px;
       padding: 10px 12px;
       border-bottom: 1px solid #e5edf7;
+    }
+
+    .rider-row.rider-status-leader {
+      background: #edf9f0;
+    }
+
+    .rider-row.rider-status-sprinter {
+      background: #edf6ff;
+    }
+
+    .rider-row.rider-status-grimpeur {
+      background: #fff2e4;
+    }
+
+    .rider-row.rider-status-polyvalent {
+      background: #f8ec9f;
     }
 
     .rider-row.abandoned {
@@ -2444,7 +2487,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const STORAGE_KEY = "fantasy-giro-2026-v1";
-    const APP_VERSION = "2026-06-17-1335";
+    const APP_VERSION = "2026-07-05-0905";
     const TEST_SCORE_BATCH = "tour-2026-random-preview-2026-06-17";
     const SUPABASE_CONFIG = {
       url: "https://paxgisozkvofzmjztrwu.supabase.co",
@@ -2512,60 +2555,1805 @@
     ];
 
     const TEAMS = [
-      { id: "alpecin", name: "Alpecin Premier Tech", image: "Alpecin - Premier Tech.png" },
-      { id: "bahrain", name: "Bahrain Victorious", image: "Bahrain - Victorious.png" },
-      { id: "bardiani", name: "Bardiani CSF - Faizanè", image: "bardiani-csf-7-saber-2026.png" },
-      { id: "cofidis", name: "Cofidis", image: "Cofidis.png" },
-      { id: "decathlon", name: "Decathlon CMA CGM Team", image: "Decathlon CMA CGM Team.png" },
-      { id: "ef", name: "EF Education - EasyPost", image: "EF Education - EasyPost.png" },
-      { id: "groupama", name: "Groupama-FDJ United", image: "Groupama - FDJ United.png" },
-      { id: "ineos", name: "INEOS Grenadiers", image: "Netcompany INEOS.png" },
-      { id: "lidl", name: "Lidl-Trek", image: "Lidl - Trek.png" },
-      { id: "lotto", name: "Lotto Intermarché", image: "Lotto Intermarché.png" },
-      { id: "movistar", name: "Movistar Team", image: "Movistar Team.png" },
-      { id: "nsn", name: "NSN Cycling Team", image: "NSN Cycling Team.png" },
-      { id: "pinarello", name: "Pinarello Q36.5 Pro Cycling Team", image: "Pinarello Q36.5 Pro Cycling Team.png" },
-      { id: "redbull", name: "Red Bull - BORA - hansgrohe", image: "Red Bull - BORA - hansgrohe.png" },
-      { id: "soudal", name: "Soudal Quick-Step", image: "Soudal Quick-Step.png" },
-      { id: "jayco", name: "Team Jayco AlUla", image: "Team Jayco AlUla.png" },
-      { id: "picnic", name: "Team Picnic PostNL", image: "Team Picnic PostNL.png" },
-      { id: "polti", name: "Team Polti VisitMalta", image: "team-polti-visitmalta-2026.png" },
-      { id: "visma", name: "Team Visma Lease a Bike", image: "Team Visma Lease a Bike.png" },
-      { id: "tudor", name: "Tudor Pro Cycling Team", image: "Tudor Pro Cycling Team.png" },
-      { id: "uae", name: "UAE Team Emirates XRG", image: "UAE Team Emirates - XRG.png" },
-      { id: "unibet", name: "Unibet Rose Rockets", image: "unibet-rose-rockets-2026.png" },
-      { id: "unox", name: "Uno-X Mobility", image: "Uno-X Mobility.png" },
-      { id: "astana", name: "XDS Astana Team", image: "XDS Astana Team.png" }
+          {
+                "id": "uae",
+                "name": "UAE Team Emirates - XRG",
+                "image": "UAE Team Emirates - XRG.png"
+          },
+          {
+                "id": "alpecin",
+                "name": "Alpecin - Premier Tech",
+                "image": "Alpecin - Premier Tech.png"
+          },
+          {
+                "id": "bahrain",
+                "name": "Bahrain - Victorious",
+                "image": "Bahrain - Victorious.png"
+          },
+          {
+                "id": "decathlon",
+                "name": "Decathlon CMA CGM Team",
+                "image": "Decathlon CMA CGM Team.png"
+          },
+          {
+                "id": "ef",
+                "name": "EF Education - Easy Post",
+                "image": "EF Education - EasyPost.png"
+          },
+          {
+                "id": "groupama",
+                "name": "Groupama - FDJ United",
+                "image": "Groupama - FDJ United.png"
+          },
+          {
+                "id": "ineos",
+                "name": "Netcompany INEOS",
+                "image": "Netcompany INEOS.png"
+          },
+          {
+                "id": "lidl",
+                "name": "Lidl - Trek",
+                "image": "Lidl - Trek.png"
+          },
+          {
+                "id": "lotto",
+                "name": "Lotto Intermarché",
+                "image": "Lotto Intermarché.png"
+          },
+          {
+                "id": "movistar",
+                "name": "Movistar Team",
+                "image": "Movistar Team.png"
+          },
+          {
+                "id": "nsn",
+                "name": "NSN Cycling Team",
+                "image": "NSN Cycling Team.png"
+          },
+          {
+                "id": "redbull",
+                "name": "Red Bull - BORA - hansgrohe",
+                "image": "Red Bull - BORA - hansgrohe.png"
+          },
+          {
+                "id": "soudal",
+                "name": "Soudal Quick-Step",
+                "image": "Soudal Quick-Step.png"
+          },
+          {
+                "id": "jayco",
+                "name": "Team Jayco AlUla",
+                "image": "Team Jayco AlUla.png"
+          },
+          {
+                "id": "picnic",
+                "name": "Team Picnic PostNL",
+                "image": "Team Picnic PostNL.png"
+          },
+          {
+                "id": "visma",
+                "name": "Team Visma Lease a Bike",
+                "image": "Team Visma Lease a Bike.png"
+          },
+          {
+                "id": "unox",
+                "name": "Uno-X Mobility",
+                "image": "Uno-X Mobility.png"
+          },
+          {
+                "id": "astana",
+                "name": "XDS Astana",
+                "image": "XDS Astana Team.png"
+          },
+          {
+                "id": "cofidis",
+                "name": "Cofidis",
+                "image": "Cofidis.png"
+          },
+          {
+                "id": "tudor",
+                "name": "Tudor Pro Cycling Team",
+                "image": "Tudor Pro Cycling Team.png"
+          },
+          {
+                "id": "total",
+                "name": "Total Énergies",
+                "image": "TotalEnergies.png"
+          },
+          {
+                "id": "caja",
+                "name": "Caja Rural - Seguros RGA",
+                "image": "Caja Rural - Seguros RGA.png"
+          },
+          {
+                "id": "pinarello",
+                "name": "Pinarello Q36.5 Pro Cycling Team",
+                "image": "Pinarello Q36.5 Pro Cycling Team.png"
+          }
     ];
-    const PDF_STARTLIST_RAW = "procyclingstats.comGiro d'Italia   |   2026\n08/05/2026 - 31/05/2026   |   3468 km    |    184 starting\n1 Alpecin - Premier Tech\n1. GROVES Kaden\n2. BAYER Tobias\n3. BUSATTO Francesco\n4. GEENS Jonas\n5. PLANCKAERT Edward\n6. PLOWRIGHT Jensen\n7. PRICE-PEJTERSEN Johan\n8. VERGALLITO Luca\nDS: MEERSMAN Gianni,VAN HECKE\nPreben\n2 Bahrain - Victorious\n11. BUITRAGO Santiago\n12. CARUSO Damiano\n13. STANNARD Robert\n14. MIHOLJEVIC Fran\n15. EULALIO Afonso\n16. PAASSCHENS Mathijs\n17. SEGAERT Alec\n18. ZAMBANINI Edoardo\nDS: PELLIZOTTI Franco,ŠTANGELJ Gorazd\n3 Bardiani CSF 7 Saber\n21. MAGLI Filippo\n22. MARCELLUSI Martin\n23. PALETTI Luca\n24. ROJAS Vicente\n25. TAROZZI Manuele\n26. TSVETKOV Nikita\n27. TURCONI Filippo\n28. ZANONCELLO Enrico\nDS: REVERBERI Roberto,ROSSATO Mirko\n4 Decathlon CMA CGM Team\n31. GALL Felix\n32. ANDRESEN Tobias Lund\n33. GUDMESTAD Tord\n34. MUHLBERGER Gregor\n35. NAESEN Oliver\n36. PEDERSEN Rasmus Sojberg\n37. SCOTSON Callum\n38. STAUNE-MITTET Johannes\nDS: HAUSSLER Heinrich,ROBERTS Luke\n5 EF Education - EasyPost\n41. CEPEDA Jefferson Alexander\n42. BATTISTELLA Samuele\n43. BELOKI Markel\n44. MIHKELS Madis\n45. RAFFERTY Darren\n46. SHAW James\n47. VALGREN Michael\n48. VAN DER LEE Jardi Christiaan\nDS: GARATE Juan Manuel,LANGEVELD\nSebastian\n6 Groupama - FDJ United\n51. CAVAGNA Remi\n52. BARTHE Cyril\n53. HUENS Axel\n54. JACOBS Johan\n55. KENCH Josh\n56. PENHOET Paul\n57. ROCHAS Remy\n58. ROLLAND Brieuc\nDS: GREEN William,GUESDON Frédéric\n7 Lidl - Trek\n61. CICCONE Giulio\n62. CONSONNI Simone\n63. GEE-WEST Derek\n64. GHEBREIGZABHIER Amanuel\n65. MILAN Jonathan\n66. SOBRERO Matteo\n67. TEUTENBERG Tim Torn\n68. WALSCHEID Max\nDS: EISEL Bernhard,RAST Grégory\n8 Lotto Intermarché\n71. DE LIE Arnaud\n72. AERTS Toon\n73. GUALDI Simone\n74. MENTEN Milan\n75. ROTA Lorenzo\n76. RUTSCH Jonas\n77. GIDDINGS Joshua\n78. VAN EETVELT Lennert\nDS: BOUET Maxime,WELLENS Bart\n9 Movistar Team\n81. MAS Enric\n82. AULAR Orluis\n83. GARCIA CORTINA Ivan\n84. LOPEZ Juan Pedro\n85. MILESI Lorenzo\n86. OLIVEIRA Nelson\n87. ROMO Javier\n88. RUBIO Einer\nDS: SCIANDRI Maximilian,WHITE Matthew\n10 Netcompany INEOS\n91. BERNAL Egan\n92. ARENSMAN Thymen\n93. GANNA Filippo\n94. HAIG Jack\n95. SHEFFIELD Magnus\n96. SVESTAD-BARDSENG Embret\n97. SWIFT Connor\n98. TURNER Ben\nDS: ARVESEN Kurt-Asle,BASSO Leonardo\n11 NSN Cycling Team\n101.PINARELLO Alessandro\n102.HIRT Jan\n103.MULLEN Ryan\n104.SCHULTZ Nick\n105.SMITH Dion\n106.STEWART Jake\n107.STRONG Corbin\n109.VERNON Ethan\nDS: CATAFORD Alexander,CLAEYS Dimitri\n12 Pinarello Q36.5 Pro Cycling\nTeam\n111.BAX Sjoerd\n112.CHRISTEN Fabio\n113.DE LA CRUZ David\n114.DONOVAN Mark\n115.GONZALEZ David\n116.HARPER Chris\n117.MOSCHETTI Matteo\n118.ZUKOWSKY Nickolas\nDS: MISSAGLIA Gabriele,NIERI Daniele\n13 Red Bull - BORA -\nhansgrohe\n121.HINDLEY Jai\n122.ALEOTTI Giovanni\n123.DENZ Nico\n124.MOSCON Gianni\n125.PELLIZZARI Giulio\n126.VAN DIJKE Mick\n127.VLASOV Aleksandr\n128.ZWIEHOFF Ben\nDS: COOKSON Oliver,PÖMER Christian\n14 Soudal Quick-Step\n131.MAGNIER Paul\n132.BASTIAENS Ayco\n133.GAROFOLI Gianmarco\n134.RACCAGNI NOVIERO Andrea\n135.STUYVEN Jasper\n136.VAN DEN BOSSCHE Fabio\n137.VAN GESTEL Dries\n138.ZANA Filippo\nDS: BRAMATI Davide,HULSMANS Kevin\n15 Team Jayco AlUla\n141.O'CONNOR Ben\n142.ACKERMANN Pascal\n143.BOUWMAN Koen\n144.DONALDSON Robert\n145.ENGELHARDT Felix\n146.HATHERLY Alan\n147.JUUL-JENSEN Christopher\n148.VENDRAME Andrea\nDS: CUMMINGS Steve,WEENING Pieter\n16 Team Picnic PostNL\n151.BARGUIL Warren\n152.DE JONG Timo\n153.FLYNN Sean\n154.HAMILTON Chris\n155.LEEMREIZE Gijs\n156.NABERMAN Tim\n157.VAN DEN BROEK Frank\n158.VAN UDEN Casper\nDS: WEST Philip,WINSTON Matthew\n17 Team Polti VisitMalta\n161.BAIS Mattia\n162.CRESCIOLI Ludovico\n163.LONARDI Giovanni\n164.MAESTRI Mirco\n165.MIFSUD Andrea\n166.PESENTI Thomas\n167.SEVILLA Diego Pablo\n168.TONELLI Alessandro\nDS: ELLENA Giovanni,GAVAZZI Francesco\n18 Team Visma | Lease a Bike\n171.VINGEGAARD Jonas\n172.CAMPENAERTS Victor\n173.KELDERMAN Wilco\n174.KIELICH Timo\n175.KUSS Sepp\n176.LEMMEN Bart\n177.PIGANZOLI Davide\n178.REX Tim\nDS: REEF Marc,VAN DONGEN Arthur\n19 Tudor Pro Cycling Team\n181.STORER Michael\n182.BARTA Will\n183.FROIDEVAUX Robin\n184.LIENHARD Fabian\n185.MOZZATO Luca\n186.RONDEL Mathys\n187.STORK Florian\n188.WARBASSE Larry\nDS: SIEBERG Marcel,TOSATTO Matteo\n20 UAE Team Emirates - XRG\n191.YATES Adam\n192.ARRIETA Igor\n193.BJERG Mikkel\n194.CHRISTEN Jan\n195.NARVAEZ Jhonatan\n196.SOLER Marc\n197.MORGADO Antonio\n198.VINE Jay\nDS: BALDATO Fabio,MARCATO Marco\n21 Unibet Rose Rockets\n201.GROENEWEGEN Dylan\n202.DE VRIES Hartthijs\n203.KOPECKY Matyas\n204.KOPECKY Tomas\n205.KUBIS Lukas\n206.LARSEN Niklas\n207.POELS Wout\n208.REINDERS Elmar\nDS: HAMMOND Roger,VIK Sverre\nDyngeland\n22 Uno-X Mobility\n211.HOELGAARD Markus\n212.HOLTER Adne\n213.KULSET Johannes\n214.DVERSNES LAVIK Fredrik\n215.LEKNESSUND Andreas\n216.BLIKRA Erlend\n217.LOLAND Sakarias Koller\n218.TJOTTA Martin\nDS: BLAUDZUN Michael,KØRNER Max\nEmil,VINJEBO Emil Mielke\n23 XDS Astana Team\n221.BALLERINI Davide\n222.BETTIOL Alberto\n223.LIVYNS Arjen\n224.LOPEZ Harold Martin\n225.MALUCELLI Matteo\n226.SCARONI Christian\n227.SILVA Guillermo Thomas\n228.ULISSI Diego\nDS: CATALDO Dario,SHEFER Alexandr";
     const TEAM_NAME_TO_ID = {
-      "Alpecin - Premier Tech": "alpecin",
-      "Bahrain - Victorious": "bahrain",
-      "Bardiani CSF 7 Saber": "bardiani",
-      "Decathlon CMA CGM Team": "decathlon",
-      "EF Education - EasyPost": "ef",
-      "Groupama - FDJ United": "groupama",
-      "Lidl - Trek": "lidl",
-      "Lotto Intermarché": "lotto",
-      "Lotto Intermarch?": "lotto",
-      "Movistar Team": "movistar",
-      "Netcompany INEOS": "ineos",
-      "NSN Cycling Team": "nsn",
-      "Pinarello Q36.5 Pro Cycling Team": "pinarello",
-      "Red Bull - BORA - hansgrohe": "redbull",
-      "Soudal Quick-Step": "soudal",
-      "Team Jayco AlUla": "jayco",
-      "Team Picnic PostNL": "picnic",
-      "Team Polti VisitMalta": "polti",
-      "Team Visma | Lease a Bike": "visma",
-      "Tudor Pro Cycling Team": "tudor",
-      "UAE Team Emirates - XRG": "uae",
-      "Unibet Rose Rockets": "unibet",
-      "Uno-X Mobility": "unox",
-      "XDS Astana Team": "astana"
+          "UAE Team Emirates - XRG": "uae",
+          "Alpecin - Premier Tech": "alpecin",
+          "Bahrain - Victorious": "bahrain",
+          "Decathlon CMA CGM Team": "decathlon",
+          "EF Education - Easy Post": "ef",
+          "Groupama - FDJ United": "groupama",
+          "Netcompany INEOS": "ineos",
+          "Lidl - Trek": "lidl",
+          "Lotto Intermarché": "lotto",
+          "Movistar Team": "movistar",
+          "NSN Cycling Team": "nsn",
+          "Red Bull - BORA - hansgrohe": "redbull",
+          "Soudal Quick-Step": "soudal",
+          "Team Jayco AlUla": "jayco",
+          "Team Picnic PostNL": "picnic",
+          "Team Visma Lease a Bike": "visma",
+          "Uno-X Mobility": "unox",
+          "XDS Astana": "astana",
+          "Cofidis": "cofidis",
+          "Tudor Pro Cycling Team": "tudor",
+          "Total Énergies": "total",
+          "Caja Rural - Seguros RGA": "caja",
+          "Pinarello Q36.5 Pro Cycling Team": "pinarello"
     };
-
-    const RIDERS = parseStartlist(PDF_STARTLIST_RAW);
+    const RIDERS = [
+          {
+                "id": "uae-tadej-pogacar",
+                "name": "Tadej Pogačar",
+                "sortName": "Pogačar Tadej",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "LEADER",
+                "stars": 27
+          },
+          {
+                "id": "uae-isaac-del-toro",
+                "name": "Isaac Del Toro",
+                "sortName": "Del Toro Isaac",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "GRIMPEUR",
+                "stars": 22
+          },
+          {
+                "id": "uae-tim-wellens",
+                "name": "Tim Wellens",
+                "sortName": "Wellens Tim",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "POLYVALENT",
+                "stars": 12
+          },
+          {
+                "id": "uae-brandon-mcnulty",
+                "name": "Brandon McNulty",
+                "sortName": "McNulty Brandon",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "GRIMPEUR",
+                "stars": 16
+          },
+          {
+                "id": "uae-adam-yates",
+                "name": "Adam Yates",
+                "sortName": "Yates Adam",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "LEADER",
+                "stars": 19
+          },
+          {
+                "id": "uae-florian-vermeersch",
+                "name": "Florian Vermeersch",
+                "sortName": "Vermeersch Florian",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "uae-nils-politt",
+                "name": "Nils Politt",
+                "sortName": "Politt Nils",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "uae-gro-schartner-felix",
+                "name": "Großschartner Felix",
+                "sortName": "Felix Großschartner",
+                "teamId": "uae",
+                "teamName": "UAE Team Emirates - XRG",
+                "status": "GRIMPEUR",
+                "stars": 12
+          },
+          {
+                "id": "alpecin-jasper-philipsen",
+                "name": "Jasper Philipsen",
+                "sortName": "Philipsen Jasper",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "SPRINTER",
+                "stars": 22
+          },
+          {
+                "id": "alpecin-mathieu-van-der-poel",
+                "name": "Mathieu Van der Poel",
+                "sortName": "Van der Poel Mathieu",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "POLYVALENT",
+                "stars": 22
+          },
+          {
+                "id": "alpecin-emiel-verstrynge",
+                "name": "Emiel Verstrynge",
+                "sortName": "Verstrynge Emiel",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "alpecin-jonas-rickaert",
+                "name": "Jonas Rickaert",
+                "sortName": "Rickaert Jonas",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "alpecin-tim-marsman",
+                "name": "Tim Marsman",
+                "sortName": "Marsman Tim",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "POLYVALENT",
+                "stars": 5
+          },
+          {
+                "id": "alpecin-ramses-debruyne",
+                "name": "Ramses Debruyne",
+                "sortName": "Debruyne Ramses",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "alpecin-edward-planckaert",
+                "name": "Edward Planckaert",
+                "sortName": "Planckaert Edward",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "alpecin-silvan-dillier",
+                "name": "Silvan Dillier",
+                "sortName": "Dillier Silvan",
+                "teamId": "alpecin",
+                "teamName": "Alpecin - Premier Tech",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "bahrain-antonio-tiberi",
+                "name": "Antonio Tiberi",
+                "sortName": "Tiberi Antonio",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "LEADER",
+                "stars": 15
+          },
+          {
+                "id": "bahrain-lenny-martinez",
+                "name": "Lenny Martinez",
+                "sortName": "Martinez Lenny",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "GRIMPEUR",
+                "stars": 15
+          },
+          {
+                "id": "bahrain-matej-mohoric",
+                "name": "Matej Mohorič",
+                "sortName": "Mohorič Matej",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "POLYVALENT",
+                "stars": 16
+          },
+          {
+                "id": "bahrain-phil-bauhaus",
+                "name": "Phil Bauhaus",
+                "sortName": "Bauhaus Phil",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "SPRINTER",
+                "stars": 15
+          },
+          {
+                "id": "bahrain-damiano-caruso",
+                "name": "Damiano Caruso",
+                "sortName": "Caruso Damiano",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "GRIMPEUR",
+                "stars": 11
+          },
+          {
+                "id": "bahrain-kamil-gradek",
+                "name": "Kamil Gradek",
+                "sortName": "Gradek Kamil",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "POLYVALENT",
+                "stars": 5
+          },
+          {
+                "id": "bahrain-robert-stannard",
+                "name": "Robert Stannard",
+                "sortName": "Stannard Robert",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "bahrain-vlad-van-mechelen",
+                "name": "Vlad Van Mechelen",
+                "sortName": "Van Mechelen Vlad",
+                "teamId": "bahrain",
+                "teamName": "Bahrain - Victorious",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "decathlon-paul-seixas",
+                "name": "Paul Seixas",
+                "sortName": "Seixas Paul",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "LEADER",
+                "stars": 19
+          },
+          {
+                "id": "decathlon-olav-kooij",
+                "name": "Olav Kooij",
+                "sortName": "Kooij Olav",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "SPRINTER",
+                "stars": 19
+          },
+          {
+                "id": "decathlon-matthew-riccitello",
+                "name": "Matthew Riccitello",
+                "sortName": "Riccitello Matthew",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "GRIMPEUR",
+                "stars": 16
+          },
+          {
+                "id": "decathlon-tiesj-benoot",
+                "name": "Tiesj Benoot",
+                "sortName": "Benoot Tiesj",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "decathlon-daan-hoole",
+                "name": "Daan Hoole",
+                "sortName": "Hoole Daan",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "decathlon-nicolas-prodhomme",
+                "name": "Nicolas Prodhomme",
+                "sortName": "Prodhomme Nicolas",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "GRIMPEUR",
+                "stars": 12
+          },
+          {
+                "id": "decathlon-aurelien-paret-peintre",
+                "name": "Aurélien Paret-Peintre",
+                "sortName": "Paret-Peintre Aurélien",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "decathlon-cees-bol",
+                "name": "Cees Bol",
+                "sortName": "Bol Cees",
+                "teamId": "decathlon",
+                "teamName": "Decathlon CMA CGM Team",
+                "status": "SPRINTER",
+                "stars": 11
+          },
+          {
+                "id": "ef-ben-healy",
+                "name": "Ben Healy",
+                "sortName": "Healy Ben",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "POLYVALENT",
+                "stars": 15
+          },
+          {
+                "id": "ef-kasper-asgreen",
+                "name": "Kasper Asgreen",
+                "sortName": "Asgreen Kasper",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "ef-richard-carapaz",
+                "name": "Richard Carapaz",
+                "sortName": "Carapaz Richard",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "LEADER",
+                "stars": 19
+          },
+          {
+                "id": "ef-alex-baudin",
+                "name": "Alex Baudin",
+                "sortName": "Baudin Alex",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "GRIMPEUR",
+                "stars": 10
+          },
+          {
+                "id": "ef-sean-quinn",
+                "name": "Sean Quinn",
+                "sortName": "Quinn Sean",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "ef-georg-steinhauser",
+                "name": "Georg Steinhauser",
+                "sortName": "Steinhauser Georg",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "POLYVALENT",
+                "stars": 13
+          },
+          {
+                "id": "ef-max-walker",
+                "name": "Max Walker",
+                "sortName": "Walker Max",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "ef-michael-valgren",
+                "name": "Michael Valgren",
+                "sortName": "Valgren Michael",
+                "teamId": "ef",
+                "teamName": "EF Education - Easy Post",
+                "status": "POLYVALENT",
+                "stars": 12
+          },
+          {
+                "id": "groupama-guillaume-martin",
+                "name": "Guillaume Martin",
+                "sortName": "Martin Guillaume",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "LEADER",
+                "stars": 13
+          },
+          {
+                "id": "groupama-romain-gregoire",
+                "name": "Romain Grégoire",
+                "sortName": "Grégoire Romain",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "POLYVALENT",
+                "stars": 14
+          },
+          {
+                "id": "groupama-clement-berthet",
+                "name": "Clément Berthet",
+                "sortName": "Berthet Clément",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "GRIMPEUR",
+                "stars": 11
+          },
+          {
+                "id": "groupama-clement-braz-afonso",
+                "name": "Clément Braz Afonso",
+                "sortName": "Braz Afonso Clément",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "GRIMPEUR",
+                "stars": 8
+          },
+          {
+                "id": "groupama-lorenzo-germani",
+                "name": "Lorenzo Germani",
+                "sortName": "Germani Lorenzo",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "groupama-quentin-pacher",
+                "name": "Quentin Pacher",
+                "sortName": "Pacher Quentin",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "groupama-clement-russo",
+                "name": "Clément Russo",
+                "sortName": "Russo Clément",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "groupama-ewen-costiou",
+                "name": "Ewen Costiou",
+                "sortName": "Costiou Ewen",
+                "teamId": "groupama",
+                "teamName": "Groupama - FDJ United",
+                "status": "GRIMPEUR",
+                "stars": 10
+          },
+          {
+                "id": "ineos-thymen-arensman",
+                "name": "Thymen Arensman",
+                "sortName": "Arensman Thymen",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "LEADER",
+                "stars": 17
+          },
+          {
+                "id": "ineos-egan-bernal",
+                "name": "Egan Bernal",
+                "sortName": "Bernal Egan",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "LEADER",
+                "stars": 16
+          },
+          {
+                "id": "ineos-tobias-foss",
+                "name": "Tobias Foss",
+                "sortName": "Foss Tobias",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "POLYVALENT",
+                "stars": 13
+          },
+          {
+                "id": "ineos-filippo-ganna",
+                "name": "Filippo Ganna",
+                "sortName": "Ganna Filippo",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "POLYVALENT",
+                "stars": 18
+          },
+          {
+                "id": "ineos-dorian-godon",
+                "name": "Dorian Godon",
+                "sortName": "Godon Dorian",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "SPRINTER",
+                "stars": 14
+          },
+          {
+                "id": "ineos-micha-kwiatkowski",
+                "name": "Michał Kwiatkowski",
+                "sortName": "Kwiatkowski Michał",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "POLYVALENT",
+                "stars": 12
+          },
+          {
+                "id": "ineos-joshua-tarling",
+                "name": "Joshua Tarling",
+                "sortName": "Tarling Joshua",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "POLYVALENT",
+                "stars": 16
+          },
+          {
+                "id": "ineos-kevin-vauquelin",
+                "name": "Kévin Vauquelin",
+                "sortName": "Vauquelin Kévin",
+                "teamId": "ineos",
+                "teamName": "Netcompany INEOS",
+                "status": "LEADER",
+                "stars": 15
+          },
+          {
+                "id": "lidl-juan-ayuso",
+                "name": "Juan Ayuso",
+                "sortName": "Ayuso Juan",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "LEADER",
+                "stars": 20
+          },
+          {
+                "id": "lidl-mads-pedersen",
+                "name": "Mads Pedersen",
+                "sortName": "Pedersen Mads",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "SPRINTER",
+                "stars": 18
+          },
+          {
+                "id": "lidl-mathias-vacek",
+                "name": "Mathias Vacek",
+                "sortName": "Vacek Mathias",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "lidl-mattias-skjelmose",
+                "name": "Mattias Skjelmose",
+                "sortName": "Skjelmose Mattias",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "GRIMPEUR",
+                "stars": 17
+          },
+          {
+                "id": "lidl-quinn-simmons",
+                "name": "Quinn Simmons",
+                "sortName": "Simmons Quinn",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "POLYVALENT",
+                "stars": 15
+          },
+          {
+                "id": "lidl-derek-gee-west",
+                "name": "Derek Gee-West",
+                "sortName": "Gee-West Derek",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "LEADER",
+                "stars": 16
+          },
+          {
+                "id": "lidl-carlos-verona",
+                "name": "Carlos Verona",
+                "sortName": "Verona Carlos",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "lidl-toms-skujins",
+                "name": "Toms Skujiņš",
+                "sortName": "Skujiņš Toms",
+                "teamId": "lidl",
+                "teamName": "Lidl - Trek",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "lotto-arnaud-de-lie",
+                "name": "Arnaud De Lie",
+                "sortName": "De Lie Arnaud",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "SPRINTER",
+                "stars": 16
+          },
+          {
+                "id": "lotto-lennert-van-eetvelt",
+                "name": "Lennert Van Eetvelt",
+                "sortName": "Van Eetvelt Lennert",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "GRIMPEUR",
+                "stars": 12
+          },
+          {
+                "id": "lotto-georg-zimmermann",
+                "name": "Georg Zimmermann",
+                "sortName": "Zimmermann Georg",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "GRIMPEUR",
+                "stars": 11
+          },
+          {
+                "id": "lotto-huub-artz",
+                "name": "Huub Artz",
+                "sortName": "Artz Huub",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "lotto-jenno-berckmoes",
+                "name": "Jenno Berckmoes",
+                "sortName": "Berckmoes Jenno",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "SPRINTER",
+                "stars": 13
+          },
+          {
+                "id": "lotto-liam-slock",
+                "name": "Liam Slock",
+                "sortName": "Slock Liam",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "lotto-lars-craps",
+                "name": "Lars Craps",
+                "sortName": "Craps Lars",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "lotto-baptiste-veistroffer",
+                "name": "Baptiste Veistroffer",
+                "sortName": "Veistroffer Baptiste",
+                "teamId": "lotto",
+                "teamName": "Lotto Intermarché",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "movistar-cian-uijtdebroeks",
+                "name": "Cian Uijtdebroeks",
+                "sortName": "Uijtdebroeks Cian",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "LEADER",
+                "stars": 16
+          },
+          {
+                "id": "movistar-raul-garcia-pierna",
+                "name": "Raúl García Pierna",
+                "sortName": "García Pierna Raúl",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "movistar-pablo-castrillo",
+                "name": "Pablo Castrillo",
+                "sortName": "Castrillo Pablo",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "GRIMPEUR",
+                "stars": 11
+          },
+          {
+                "id": "movistar-einer-rubio",
+                "name": "Einer Rubio",
+                "sortName": "Rubio Einer",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "GRIMPEUR",
+                "stars": 14
+          },
+          {
+                "id": "movistar-javier-romo",
+                "name": "Javier Romo",
+                "sortName": "Romo Javier",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "POLYVALENT",
+                "stars": 7
+          },
+          {
+                "id": "movistar-nelson-oliveira",
+                "name": "Nelson Oliveira",
+                "sortName": "Oliveira Nelson",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "movistar-jefferson-alveiro-cepeda",
+                "name": "Jefferson Alveiro Cepeda",
+                "sortName": "Cepeda Jefferson Alveiro",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "GRIMPEUR",
+                "stars": 11
+          },
+          {
+                "id": "movistar-michel-hessmann",
+                "name": "Michel Hessmann",
+                "sortName": "Hessmann Michel",
+                "teamId": "movistar",
+                "teamName": "Movistar Team",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "nsn-biniam-girmay",
+                "name": "Biniam Girmay",
+                "sortName": "Girmay Biniam",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "SPRINTER",
+                "stars": 19
+          },
+          {
+                "id": "nsn-jake-stewart",
+                "name": "Jake Stewart",
+                "sortName": "Stewart Jake",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "SPRINTER",
+                "stars": 15
+          },
+          {
+                "id": "nsn-lewis-askey",
+                "name": "Lewis Askey",
+                "sortName": "Askey Lewis",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 13
+          },
+          {
+                "id": "nsn-krists-neilands",
+                "name": "Krists Neilands",
+                "sortName": "Neilands Krists",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "nsn-marco-frigo",
+                "name": "Marco Frigo",
+                "sortName": "Frigo Marco",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "GRIMPEUR",
+                "stars": 8
+          },
+          {
+                "id": "nsn-matis-louvel",
+                "name": "Matis Louvel",
+                "sortName": "Louvel Matis",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 7
+          },
+          {
+                "id": "nsn-george-bennett",
+                "name": "George Bennett",
+                "sortName": "Bennett George",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "GRIMPEUR",
+                "stars": 11
+          },
+          {
+                "id": "nsn-tom-van-asbroeck",
+                "name": "Tom Van Asbroeck",
+                "sortName": "Van Asbroeck Tom",
+                "teamId": "nsn",
+                "teamName": "NSN Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "redbull-tim-van-dijke",
+                "name": "Tim Van Dijke",
+                "sortName": "Van Dijke Tim",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "redbull-remco-evenepoel",
+                "name": "Remco Evenepoel",
+                "sortName": "Evenepoel Remco",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "LEADER",
+                "stars": 20
+          },
+          {
+                "id": "redbull-nico-denz",
+                "name": "Nico Denz",
+                "sortName": "Denz Nico",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "POLYVALENT",
+                "stars": 7
+          },
+          {
+                "id": "redbull-florian-lipowitz",
+                "name": "Florian Lipowitz",
+                "sortName": "Lipowitz Florian",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "LEADER",
+                "stars": 20
+          },
+          {
+                "id": "redbull-mattia-cattaneo",
+                "name": "Mattia Cattaneo",
+                "sortName": "Cattaneo Mattia",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "redbull-jan-tratnik",
+                "name": "Jan Tratnik",
+                "sortName": "Tratnik Jan",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "redbull-maxim-van-gils",
+                "name": "Maxim Van Gils",
+                "sortName": "Van Gils Maxim",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "POLYVALENT",
+                "stars": 12
+          },
+          {
+                "id": "redbull-jai-hindley",
+                "name": "Jai Hindley",
+                "sortName": "Hindley Jai",
+                "teamId": "redbull",
+                "teamName": "Red Bull - BORA - hansgrohe",
+                "status": "GRIMPEUR",
+                "stars": 16
+          },
+          {
+                "id": "soudal-valentin-paret-peintre",
+                "name": "Valentin Paret-Peintre",
+                "sortName": "Paret-Peintre Valentin",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "GRIMPEUR",
+                "stars": 14
+          },
+          {
+                "id": "soudal-tim-merlier",
+                "name": "Tim Merlier",
+                "sortName": "Merlier Tim",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "SPRINTER",
+                "stars": 23
+          },
+          {
+                "id": "soudal-pascal-eenkhoorn",
+                "name": "Pascal Eenkhoorn",
+                "sortName": "Eenkhoorn Pascal",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "soudal-jasper-stuyven",
+                "name": "Jasper Stuyven",
+                "sortName": "Stuyven Jasper",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "POLYVALENT",
+                "stars": 12
+          },
+          {
+                "id": "soudal-dylan-van-baarle",
+                "name": "Dylan Van Baarle",
+                "sortName": "Van Baarle Dylan",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "soudal-bert-van-lerberghe",
+                "name": "Bert Van Lerberghe",
+                "sortName": "Van Lerberghe Bert",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "soudal-ilan-van-wilder",
+                "name": "Ilan Van Wilder",
+                "sortName": "Van Wilder Ilan",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "GRIMPEUR",
+                "stars": 13
+          },
+          {
+                "id": "soudal-louis-vervaeke",
+                "name": "Louis Vervaeke",
+                "sortName": "Vervaeke Louis",
+                "teamId": "soudal",
+                "teamName": "Soudal Quick-Step",
+                "status": "GRIMPEUR",
+                "stars": 7
+          },
+          {
+                "id": "jayco-michael-matthews",
+                "name": "Michael Matthews",
+                "sortName": "Matthews Michael",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "SPRINTER",
+                "stars": 15
+          },
+          {
+                "id": "jayco-luke-plapp",
+                "name": "Luke Plapp",
+                "sortName": "Plapp Luke",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "POLYVALENT",
+                "stars": 13
+          },
+          {
+                "id": "jayco-pascal-ackermann",
+                "name": "Pascal Ackermann",
+                "sortName": "Ackermann Pascal",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "SPRINTER",
+                "stars": 15
+          },
+          {
+                "id": "jayco-ben-o-connor",
+                "name": "Ben O'Connor",
+                "sortName": "O'Connor Ben",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "LEADER",
+                "stars": 16
+          },
+          {
+                "id": "jayco-mauro-schmid",
+                "name": "Mauro Schmid",
+                "sortName": "Schmid Mauro",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "GRIMPEUR",
+                "stars": 14
+          },
+          {
+                "id": "jayco-kelland-o-brien",
+                "name": "Kelland O'Brien",
+                "sortName": "O'Brien Kelland",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "POLYVALENT",
+                "stars": 5
+          },
+          {
+                "id": "jayco-felix-engelhardt",
+                "name": "Felix Engelhardt",
+                "sortName": "Engelhardt Felix",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "jayco-luke-durbridge",
+                "name": "Luke Durbridge",
+                "sortName": "Durbridge Luke",
+                "teamId": "jayco",
+                "teamName": "Team Jayco AlUla",
+                "status": "POLYVALENT",
+                "stars": 7
+          },
+          {
+                "id": "picnic-pavel-bittner",
+                "name": "Pavel Bittner",
+                "sortName": "Bittner Pavel",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "SPRINTER",
+                "stars": 13
+          },
+          {
+                "id": "picnic-warren-barguil",
+                "name": "Warren Barguil",
+                "sortName": "Barguil Warren",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "GRIMPEUR",
+                "stars": 10
+          },
+          {
+                "id": "picnic-frank-van-den-broek",
+                "name": "Frank Van den Broek",
+                "sortName": "Van den Broek Frank",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "picnic-robbe-dhondt",
+                "name": "Robbe Dhondt",
+                "sortName": "Dhondt Robbe",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "POLYVALENT",
+                "stars": 5
+          },
+          {
+                "id": "picnic-julius-van-den-berg",
+                "name": "Julius Van den Berg",
+                "sortName": "Van den Berg Julius",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "picnic-niklas-markl",
+                "name": "Niklas Märkl",
+                "sortName": "Märkl Niklas",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "picnic-frits-biesterbos",
+                "name": "Frits Biesterbos",
+                "sortName": "Biesterbos Frits",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "picnic-john-degenkolb",
+                "name": "John Degenkolb",
+                "sortName": "Degenkolb John",
+                "teamId": "picnic",
+                "teamName": "Team Picnic PostNL",
+                "status": "SPRINTER",
+                "stars": 10
+          },
+          {
+                "id": "visma-victor-campenaerts",
+                "name": "Victor Campenaerts",
+                "sortName": "Campenaerts Victor",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "visma-edoardo-affini",
+                "name": "Edoardo Affini",
+                "sortName": "Affini Edoardo",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "POLYVALENT",
+                "stars": 14
+          },
+          {
+                "id": "visma-per-strand-hagenes",
+                "name": "Per Strand Hagenes",
+                "sortName": "Hagenes Per Strand",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "GRIMPEUR",
+                "stars": 10
+          },
+          {
+                "id": "visma-matteo-jorgenson",
+                "name": "Matteo Jorgenson",
+                "sortName": "Jorgenson Matteo",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "GRIMPEUR",
+                "stars": 18
+          },
+          {
+                "id": "visma-sepp-kuss",
+                "name": "Sepp Kuss",
+                "sortName": "Kuss Sepp",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "GRIMPEUR",
+                "stars": 16
+          },
+          {
+                "id": "visma-bruno-armirail",
+                "name": "Bruno Armirail",
+                "sortName": "Armirail Bruno",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "visma-davide-piganzoli",
+                "name": "Davide Piganzoli",
+                "sortName": "Piganzoli Davide",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "GRIMPEUR",
+                "stars": 16
+          },
+          {
+                "id": "visma-jonas-vingegaard",
+                "name": "Jonas Vingegaard",
+                "sortName": "Vingegaard Jonas",
+                "teamId": "visma",
+                "teamName": "Team Visma Lease a Bike",
+                "status": "LEADER",
+                "stars": 24
+          },
+          {
+                "id": "unox-magnus-cort",
+                "name": "Magnus Cort",
+                "sortName": "Cort Magnus",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "POLYVALENT",
+                "stars": 14
+          },
+          {
+                "id": "unox-tobias-halland-johannessen",
+                "name": "Tobias Halland Johannessen",
+                "sortName": "Johannessen Tobias Halland",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "LEADER",
+                "stars": 17
+          },
+          {
+                "id": "unox-anders-skaarseth",
+                "name": "Anders Skaarseth",
+                "sortName": "Skaarseth Anders",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "unox-s-ren-w-renskjold",
+                "name": "Søren Wærenskjold",
+                "sortName": "Wærenskjold Søren",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "unox-anthon-charmig",
+                "name": "Anthon Charmig",
+                "sortName": "Charmig Anthon",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "GRIMPEUR",
+                "stars": 8
+          },
+          {
+                "id": "unox-jonas-abrahamsen",
+                "name": "Jonas Abrahamsen",
+                "sortName": "Abrahamsen Jonas",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "POLYVALENT",
+                "stars": 12
+          },
+          {
+                "id": "unox-torstein-tr-en",
+                "name": "Torstein Træen",
+                "sortName": "Træen Torstein",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "GRIMPEUR",
+                "stars": 10
+          },
+          {
+                "id": "unox-anders-halland-johannessen",
+                "name": "Anders Halland Johannessen",
+                "sortName": "Johannessen Anders Halland",
+                "teamId": "unox",
+                "teamName": "Uno-X Mobility",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "astana-mike-teunissen",
+                "name": "Mike Teunissen",
+                "sortName": "Teunissen Mike",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "SPRINTER",
+                "stars": 9
+          },
+          {
+                "id": "astana-sergio-higuita",
+                "name": "Sergio Higuita",
+                "sortName": "Higuita Sergio",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "GRIMPEUR",
+                "stars": 13
+          },
+          {
+                "id": "astana-harold-tejada",
+                "name": "Harold Tejada",
+                "sortName": "Tejada Harold",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "GRIMPEUR",
+                "stars": 13
+          },
+          {
+                "id": "astana-max-kanter",
+                "name": "Max Kanter",
+                "sortName": "Kanter Max",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "SPRINTER",
+                "stars": 13
+          },
+          {
+                "id": "astana-nicolas-vinokurov",
+                "name": "Nicolas Vinokurov",
+                "sortName": "Vinokurov Nicolas",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "astana-davide-ballerini",
+                "name": "Davide Ballerini",
+                "sortName": "Ballerini Davide",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "POLYVALENT",
+                "stars": 12
+          },
+          {
+                "id": "astana-aaron-gate",
+                "name": "Aaron Gate",
+                "sortName": "Gate Aaron",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "SPRINTER",
+                "stars": 10
+          },
+          {
+                "id": "astana-simone-velasco",
+                "name": "Simone Velasco",
+                "sortName": "Velasco Simone",
+                "teamId": "astana",
+                "teamName": "XDS Astana",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "cofidis-piet-allegaert",
+                "name": "Piet Allegaert",
+                "sortName": "Allegaert Piet",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "cofidis-jenthe-biermans",
+                "name": "Jenthe Biermans",
+                "sortName": "Biermans Jenthe",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "POLYVALENT",
+                "stars": 7
+          },
+          {
+                "id": "cofidis-milan-fretin",
+                "name": "Milan Fretin",
+                "sortName": "Fretin Milan",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "SPRINTER",
+                "stars": 14
+          },
+          {
+                "id": "cofidis-alex-kirsch",
+                "name": "Alex Kirsch",
+                "sortName": "Kirsch Alex",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "POLYVALENT",
+                "stars": 6
+          },
+          {
+                "id": "cofidis-hugo-page",
+                "name": "Hugo Page",
+                "sortName": "Page Hugo",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "SPRINTER",
+                "stars": 11
+          },
+          {
+                "id": "cofidis-alex-aranburu",
+                "name": "Alex Aranburu",
+                "sortName": "Aranburu Alex",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "SPRINTER",
+                "stars": 13
+          },
+          {
+                "id": "cofidis-benjamin-thomas",
+                "name": "Benjamin Thomas",
+                "sortName": "Thomas Benjamin",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "cofidis-ion-izagirre",
+                "name": "Ion Izagirre",
+                "sortName": "Izagirre Ion",
+                "teamId": "cofidis",
+                "teamName": "Cofidis",
+                "status": "GRIMPEUR",
+                "stars": 12
+          },
+          {
+                "id": "tudor-julian-alaphilippe",
+                "name": "Julian Alaphilippe",
+                "sortName": "Alaphilippe Julian",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 15
+          },
+          {
+                "id": "tudor-matteo-trentin",
+                "name": "Matteo Trentin",
+                "sortName": "Trentin Matteo",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "SPRINTER",
+                "stars": 12
+          },
+          {
+                "id": "tudor-michael-storer",
+                "name": "Michael Storer",
+                "sortName": "Storer Michael",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "LEADER",
+                "stars": 16
+          },
+          {
+                "id": "tudor-rick-pluimers",
+                "name": "Rick Pluimers",
+                "sortName": "Pluimers Rick",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "tudor-arvid-de-kleijn",
+                "name": "Arvid De Kleijn",
+                "sortName": "De Kleijn Arvid",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "SPRINTER",
+                "stars": 15
+          },
+          {
+                "id": "tudor-marco-haller",
+                "name": "Marco Haller",
+                "sortName": "Haller Marco",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "tudor-marc-hirschi",
+                "name": "Marc Hirschi",
+                "sortName": "Hirschi Marc",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "tudor-yannis-voisard",
+                "name": "Yannis Voisard",
+                "sortName": "Voisard Yannis",
+                "teamId": "tudor",
+                "teamName": "Tudor Pro Cycling Team",
+                "status": "GRIMPEUR",
+                "stars": 9
+          },
+          {
+                "id": "total-jordan-jegat",
+                "name": "Jordan Jegat",
+                "sortName": "Jegat Jordan",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "LEADER",
+                "stars": 14
+          },
+          {
+                "id": "total-alexandre-delettre",
+                "name": "Alexandre Delettre",
+                "sortName": "Delettre Alexandre",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "total-anthony-turgis",
+                "name": "Anthony Turgis",
+                "sortName": "Turgis Anthony",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "total-matteo-vercher",
+                "name": "Mattéo Vercher",
+                "sortName": "Vercher Mattéo",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "total-mathis-le-berre",
+                "name": "Mathis Le Berre",
+                "sortName": "Le Berre Mathis",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "total-nicolas-breuillard",
+                "name": "Nicolas Breuillard",
+                "sortName": "Breuillard Nicolas",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "GRIMPEUR",
+                "stars": 7
+          },
+          {
+                "id": "total-joris-delbove",
+                "name": "Joris Delbove",
+                "sortName": "Delbove Joris",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "total-thibault-guernalec",
+                "name": "Thibault Guernalec",
+                "sortName": "Guernalec Thibault",
+                "teamId": "total",
+                "teamName": "Total Énergies",
+                "status": "POLYVALENT",
+                "stars": 10
+          },
+          {
+                "id": "caja-alex-molenaar",
+                "name": "Alex Molenaar",
+                "sortName": "Molenaar Alex",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "POLYVALENT",
+                "stars": 5
+          },
+          {
+                "id": "caja-joel-nicolau",
+                "name": "Joel Nicolau",
+                "sortName": "Nicolau Joel",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "GRIMPEUR",
+                "stars": 6
+          },
+          {
+                "id": "caja-abel-balderstone",
+                "name": "Abel Balderstone",
+                "sortName": "Balderstone Abel",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "LEADER",
+                "stars": 10
+          },
+          {
+                "id": "caja-sebastian-berwick",
+                "name": "Sebastian Berwick",
+                "sortName": "Berwick Sebastian",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "GRIMPEUR",
+                "stars": 8
+          },
+          {
+                "id": "caja-fernando-gaviria",
+                "name": "Fernando Gaviria",
+                "sortName": "Gaviria Fernando",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "SPRINTER",
+                "stars": 14
+          },
+          {
+                "id": "caja-stefano-oldani",
+                "name": "Stefano Oldani",
+                "sortName": "Oldani Stefano",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "SPRINTER",
+                "stars": 8
+          },
+          {
+                "id": "caja-jakub-otruba",
+                "name": "Jakub Otruba",
+                "sortName": "Otruba Jakub",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "POLYVALENT",
+                "stars": 8
+          },
+          {
+                "id": "caja-jose-felix-parra",
+                "name": "José Félix Parra",
+                "sortName": "Parra José Félix",
+                "teamId": "caja",
+                "teamName": "Caja Rural - Seguros RGA",
+                "status": "LEADER",
+                "stars": 12
+          },
+          {
+                "id": "pinarello-tom-pidcock",
+                "name": "Tom Pidcock",
+                "sortName": "Pidcock Tom",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "LEADER",
+                "stars": 18
+          },
+          {
+                "id": "pinarello-xabier-mikel-azparren",
+                "name": "Xabier Mikel Azparren",
+                "sortName": "Azparren Xabier Mikel",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 7
+          },
+          {
+                "id": "pinarello-chris-harper",
+                "name": "Chris Harper",
+                "sortName": "Harper Chris",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "GRIMPEUR",
+                "stars": 10
+          },
+          {
+                "id": "pinarello-quinten-hermans",
+                "name": "Quinten Hermans",
+                "sortName": "Hermans Quinten",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 11
+          },
+          {
+                "id": "pinarello-damien-howson",
+                "name": "Damien Howson",
+                "sortName": "Howson Damien",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "GRIMPEUR",
+                "stars": 8
+          },
+          {
+                "id": "pinarello-xandro-meurisse",
+                "name": "Xandro Meurisse",
+                "sortName": "Meurisse Xandro",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "GRIMPEUR",
+                "stars": 9
+          },
+          {
+                "id": "pinarello-brent-van-moer",
+                "name": "Brent Van Moer",
+                "sortName": "Van Moer Brent",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 9
+          },
+          {
+                "id": "pinarello-fred-wright",
+                "name": "Fred Wright",
+                "sortName": "Wright Fred",
+                "teamId": "pinarello",
+                "teamName": "Pinarello Q36.5 Pro Cycling Team",
+                "status": "POLYVALENT",
+                "stars": 12
+          }
+    ];
     const RIDERS_ALPHABETICAL = [...RIDERS].sort((a, b) => a.sortName.localeCompare(b.sortName, "fr"));
     const RIDERS_PER_FANTASY_TEAM = 8;
 
@@ -2710,86 +4498,10 @@
       return state.data.players.find((player) => player.id === id) || state.data.players[0];
     }
 
-    function parseStartlist(rawText) {
-      const riderRegex = /^(\d{1,3})\.\s*(.+)$/;
-      const teamRegex = /^(\d{1,2})\s+(.+)$/;
-      const teams = [];
-      let currentTeam = null;
-
-      for (const rawLine of rawText.split(/\n/)) {
-        const line = rawLine.trim();
-        if (!line) continue;
-        if (line.startsWith("procyclingstats.com") || line.startsWith("08/05/") || line.startsWith("DS:")) continue;
-
-        const riderMatch = line.match(riderRegex);
-        if (riderMatch && currentTeam) {
-          currentTeam.riders.push({
-            bib: riderMatch[1],
-            name: formatRiderName(riderMatch[2])
-          });
-          continue;
-        }
-
-        const teamMatch = line.match(teamRegex);
-        if (teamMatch && !riderMatch) {
-          currentTeam = {
-            number: teamMatch[1],
-            name: teamMatch[2].trim(),
-            riders: []
-          };
-          teams.push(currentTeam);
-          continue;
-        }
-
-        if (currentTeam && !currentTeam.riders.length) {
-          currentTeam.name = (currentTeam.name + " " + line).replace(/\s+/g, " ").trim();
-        }
-      }
-
-      return teams.flatMap((team) => {
-        const teamId = TEAM_NAME_TO_ID[team.name] || guessTeamId(team.name);
-        return team.riders.map((rider) => ({
-          id: "bib-" + rider.bib,
-          bib: rider.bib,
-          name: rider.name,
-          sortName: riderSortName(rider.name),
-          teamId,
-          teamName: team.name
-        }));
-      }).sort((a, b) => a.sortName.localeCompare(b.sortName, "fr"));
-    }
-
-    function formatRiderName(value) {
-      const smallWords = new Set(["DE", "DEL", "DELLA", "DI", "DA", "DOS", "VAN", "VAN DER", "VAN DEN", "VON", "LA", "LE"]);
-      const parts = value.trim().split(/\s+/);
-      const surname = [];
-      const given = [];
-      for (const part of parts) {
-        if (/^[\p{Lu}'\u2019-]+$/u.test(part) || smallWords.has(part)) surname.push(titleCase(part));
-        else given.push(titleCase(part));
-      }
-      if (!given.length) return parts.map(titleCase).join(" ");
-      return `${given.join(" ")} ${surname.join(" ")}`.replace(/\s+/g, " ").trim();
-    }
-
-    function titleCase(value) {
-      return value
-        .toLowerCase()
-        .split(/([-'\u2019])/)
-        .map((part) => part === "-" || part === "'" || part === "\u2019" ? part : part.charAt(0).toUpperCase() + part.slice(1))
-        .join("");
-    }
-
     function riderSortName(name) {
       const parts = name.trim().split(/\s+/);
       if (parts.length < 2) return name;
       return `${parts[parts.length - 1]} ${parts.slice(0, -1).join(" ")}`;
-    }
-
-    function guessTeamId(teamName) {
-      const normalized = teamName.toLowerCase();
-      const found = TEAMS.find((team) => normalized.includes(team.name.toLowerCase().split(" ")[0]));
-      return found ? found.id : TEAMS[0].id;
     }
 
     function riderById(id) {
@@ -2799,7 +4511,7 @@
     function buildDefaultRiderTeams(players) {
       return {
         assignments: buildDemoRiderAssignments(players),
-        abandonedRiderIds: ["bib-128", "bib-165", "bib-187"].filter((id) => riderById(id)),
+        abandonedRiderIds: [],
         changeCounts: Object.fromEntries(players.map((player) => [player.id, 0])),
         changeHistory: []
       };
@@ -2814,7 +4526,7 @@
     }
 
     function demoRiderEntriesForIndex(playerIndex) {
-      const anchors = ["bib-171", "bib-65", "bib-91", "bib-121", "bib-1", "bib-191", "bib-61", "bib-195"];
+      const anchors = ["uae-tadej-pogacar", "alpecin-jasper-philipsen", "visma-jonas-vingegaard", "lidl-jonathan-milan", "redbull-primoz-roglic", "alpecin-mathieu-van-der-poel", "uae-adam-yates", "pinarello-tom-pidcock"];
       const riderIds = RIDERS.map((rider) => rider.id);
       const used = new Set();
       const picks = [];
@@ -2913,6 +4625,8 @@
         riderId: selected.id,
         name: selected.name,
         teamId: selected.teamId,
+        status: selected.status || "",
+        stars: Number(selected.stars) || 0,
         abandoned: isRiderAbandoned(selected.id)
       };
       const fallback = RIDERS[0];
@@ -2920,6 +4634,8 @@
         riderId: fallback?.id || "",
         name: safeEntry.name || fallback?.name || "",
         teamId: safeEntry.teamId || fallback?.teamId || TEAMS[0].id,
+        status: fallback?.status || "",
+        stars: Number(fallback?.stars) || 0,
         abandoned: isRiderAbandoned(fallback?.id || "")
       };
     }
@@ -4351,6 +6067,7 @@
         const abandonedCount = riders.filter((rider) => abandonedMap[rider.riderId]).length;
         const activeCount = Math.max(0, riders.length - abandonedCount);
         const changeCount = riderChangeCount(player.id);
+        const starTotal = riders.reduce((sum, rider) => sum + (Number(rider.stars) || 0), 0);
         visibleRiders.sort((a, b) => a.name.localeCompare(b.name, "fr"));
         return `
           <article class="manager-card">
@@ -4363,6 +6080,7 @@
                   <span class="tag change-count-chip ${changeLevelClass(changeCount)}">${changeCount} changement${changeCount > 1 ? "s" : ""}</span>
                 </div>
               </div>
+              <div class="manager-stars" title="Total étoiles de l'équipe"><span aria-hidden="true">★</span>${formatNumber(starTotal)}</div>
             </div>
             <div class="rider-list">
               ${visibleRiders.map((rider) => renderRiderRow(rider, countMap, abandonedMap)).join("")}
@@ -4375,8 +6093,9 @@
     function renderRiderRow(rider, countMap, abandonedMap) {
       const team = teamById(rider.teamId);
       const abandoned = abandonedMap[rider.riderId] || rider.abandoned;
+      const statusClass = abandoned ? "" : riderStatusClass(rider.status);
       return `
-        <div class="rider-row ${abandoned ? "abandoned" : ""}">
+        <div class="rider-row ${abandoned ? "abandoned" : ""} ${statusClass}">
           <img class="jersey" src="${team.image}" alt="${escapeHtml(team.name)}">
           <div class="rider-main">
             <div class="rider-name">${escapeHtml(rider.name)}</div>
@@ -4384,6 +6103,16 @@
           ${abandoned ? `<span class="count-pill abandoned">AB</span>` : ""}
         </div>
       `;
+    }
+
+    function riderStatusClass(status) {
+      const classes = {
+        LEADER: "rider-status-leader",
+        SPRINTER: "rider-status-sprinter",
+        GRIMPEUR: "rider-status-grimpeur",
+        POLYVALENT: "rider-status-polyvalent"
+      };
+      return classes[String(status || "").toUpperCase()] || "";
     }
 
     function applyRiderOverviewFilters() {
