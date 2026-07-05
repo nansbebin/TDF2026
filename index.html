@@ -1512,19 +1512,19 @@
     }
 
     .rider-row.rider-status-leader {
-      background: #edf9f0;
+      background: rgba(0, 166, 81, 0.10);
     }
 
     .rider-row.rider-status-sprinter {
-      background: #edf6ff;
+      background: rgba(0, 91, 170, 0.10);
     }
 
     .rider-row.rider-status-grimpeur {
-      background: #fff2e4;
+      background: rgba(255, 122, 0, 0.12);
     }
 
     .rider-row.rider-status-polyvalent {
-      background: #f8ec9f;
+      background: rgba(255, 221, 0, 0.10);
     }
 
     .rider-row.abandoned {
@@ -2487,7 +2487,7 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const STORAGE_KEY = "fantasy-giro-2026-v1";
-    const APP_VERSION = "2026-07-05-0905";
+    const APP_VERSION = "2026-07-05-0930";
     const TEST_SCORE_BATCH = "tour-2026-random-preview-2026-06-17";
     const SUPABASE_CONFIG = {
       url: "https://paxgisozkvofzmjztrwu.supabase.co",
@@ -6068,7 +6068,7 @@
         const activeCount = Math.max(0, riders.length - abandonedCount);
         const changeCount = riderChangeCount(player.id);
         const starTotal = riders.reduce((sum, rider) => sum + (Number(rider.stars) || 0), 0);
-        visibleRiders.sort((a, b) => a.name.localeCompare(b.name, "fr"));
+        visibleRiders.sort((a, b) => (Number(b.stars) || 0) - (Number(a.stars) || 0) || a.name.localeCompare(b.name, "fr"));
         return `
           <article class="manager-card">
             <div class="manager-head">
